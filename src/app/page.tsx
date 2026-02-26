@@ -1,65 +1,76 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { Anchor } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
+import AboutSection from "@/components/AboutSection";
+import FleetSection from "@/components/FleetSection";
+import ExperiencesSection from "@/components/ExperiencesSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
+import Modal from "@/components/Modal";
+
+const fleet = [
+  { name: 'The Wanderer', model: 'Helium I', guests: 13, cabins: 2, price: '$1088', rating: 4.9, note: "For intimate whispers...", image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1000' },
+  { name: 'Ocean Song', model: 'Lagoon II', guests: 30, cabins: 3, price: '$988', rating: 4.8, note: "Our beloved classic!", image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=1000' },
+  { name: 'Stargazer', model: 'Azimut III', guests: 25, cabins: 3, price: '$1188', rating: 5.0, note: "Pure poetry in motion", image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=1000' }
+];
 
 export default function Home() {
+  const [modalState, setModalState] = useState({ isOpen: false, context: '' });
+
+  useScrollReveal();
+
+  const openModal = (context: string) => {
+    setModalState({ isOpen: true, context });
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, context: '' });
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'unset';
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="bg-[#FBFBF9] overflow-x-hidden selection:bg-[#0077b6] selection:text-white noise-bg min-h-screen relative text-slate-800">
+
+      {/* BACKGROUND NAUTICAL CHARTS */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.04]">
+        <svg className="absolute top-0 left-0 w-[150%] h-[150%] text-[#0077b6]" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+          {/* Bathymetric depth lines */}
+          <path className="path-draw" d="M -100 200 Q 200 100 500 350 T 1100 200" fill="none" stroke="currentColor" strokeWidth="2" />
+          <path className="path-draw" d="M -100 220 Q 220 120 520 370 T 1100 220" fill="none" stroke="currentColor" strokeWidth="1" />
+          <path className="path-draw" d="M -100 240 Q 240 140 540 390 T 1100 240" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          <path className="path-draw" d="M 400 600 Q 600 500 800 700 T 1200 600" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="10 5" />
+        </svg>
+      </div>
+
+      {/* Harbor Master Stamp */}
+      <div className="fixed bottom-40 left-10 w-48 h-48 rounded-full border-[3px] border-[#0077b6] opacity-[0.08] pointer-events-none rotate-[-15deg] flex items-center justify-center z-0 hand-drawn-alt mix-blend-multiply">
+        <div className="w-40 h-40 rounded-full border border-[#0077b6] flex flex-col items-center justify-center text-center">
+          <span className="font-[family-name:var(--font-playfair)] tracking-[0.4em] text-[10px] uppercase mt-2">Cleared for Departure</span>
+          <Anchor className="w-6 h-6 my-2 text-[#0077b6]" />
+          <span className="font-[family-name:var(--font-playfair)] tracking-[0.3em] text-[8px] uppercase">Sentosa Cove</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+
+      <Navigation openModal={openModal} />
+      <Hero openModal={openModal} />
+      <AboutSection />
+      <FleetSection fleet={fleet} openModal={openModal} />
+      <ExperiencesSection openModal={openModal} />
+      <FeaturesSection />
+      <CTASection openModal={openModal} />
+      <Footer openModal={openModal} />
+      <Modal isOpen={modalState.isOpen} context={modalState.context} closeModal={closeModal} />
     </div>
   );
 }
