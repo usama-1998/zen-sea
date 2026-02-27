@@ -11,10 +11,12 @@ export default function FeaturesSection() {
     return (
         <section className="py-20 lg:py-28 relative overflow-hidden bg-white border-y border-[#C5A880]/20 z-10">
             {/* Giant background compass drawing */}
-            <svg className="absolute left-[-10%] top-[-10%] w-[120%] h-[120%] text-slate-100 opacity-60 pointer-events-none -z-10" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-                <circle className="path-draw" cx="500" cy="500" r="400" fill="none" stroke="currentColor" strokeWidth="4" strokeDasharray="10 20" />
-                <path className="path-draw" d="M100 500 L900 500 M500 100 L500 900" fill="none" stroke="currentColor" strokeWidth="2" />
-            </svg>
+            <div className="absolute inset-0 pointer-events-none -z-10 reveal-on-scroll opacity-0">
+                <svg className="absolute left-[-10%] top-[-10%] w-[120%] h-[120%] text-slate-100 opacity-60" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                    <circle className="path-draw" cx="500" cy="500" r="400" fill="none" stroke="currentColor" strokeWidth="4" strokeDasharray="10 20" />
+                    <path className="path-draw" d="M100 500 L900 500 M500 100 L500 900" fill="none" stroke="currentColor" strokeWidth="2" />
+                </svg>
+            </div>
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
                 <div className="text-center mb-16 lg:mb-20 reveal-on-scroll opacity-0 translate-y-12">

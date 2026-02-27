@@ -25,7 +25,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
 
                     <div className="w-full h-full relative overflow-hidden hand-drawn-fill min-h-[400px]">
                         <img
-                            src="https://images.unsplash.com/photo-1540359734914-7fb32a762035?auto=format&fit=crop&q=80&w=1200"
+                            src="https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&q=80&w=1200"
                             alt="Curated Celebrations on Yacht"
                             className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-1000"
                         />

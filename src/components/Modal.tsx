@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { X, Send } from "lucide-react";
 
 interface ModalProps {
@@ -9,6 +10,17 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, context, closeModal }: ModalProps) {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (

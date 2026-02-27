@@ -9,6 +9,11 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - Highly optimized typography with `next/font/google`.
 - Mobile-responsive navigation and interactive Modals.
 
+## Recent Updates
+- Resolved server hydration errors by properly handling client-side modal states.
+- Replaced placeholder imagery with high-quality curated assets.
+- Improved background SVG animations and visibility.
+- Fixed broken footer navigation links to properly anchor to page sections.
 ## Getting Started
 
 First, install the dependencies if they aren't already:

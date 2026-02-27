@@ -27,23 +27,17 @@ export default function Home() {
 
   const openModal = (context: string) => {
     setModalState({ isOpen: true, context });
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'hidden';
-    }
   };
 
   const closeModal = () => {
     setModalState({ isOpen: false, context: '' });
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'unset';
-    }
   };
 
   return (
     <div className="bg-[#FBFBF9] overflow-x-hidden selection:bg-[#0077b6] selection:text-white noise-bg min-h-screen relative text-slate-800">
 
       {/* BACKGROUND NAUTICAL CHARTS */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.04]">
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.04] reveal-on-scroll opacity-0">
         <svg className="absolute top-0 left-0 w-[150%] h-[150%] text-[#0077b6]" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
           {/* Bathymetric depth lines */}
           <path className="path-draw" d="M -100 200 Q 200 100 500 350 T 1100 200" fill="none" stroke="currentColor" strokeWidth="2" />

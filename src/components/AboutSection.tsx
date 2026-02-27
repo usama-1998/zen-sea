@@ -19,7 +19,7 @@ export default function AboutSection() {
                     <div className="relative p-4 bg-white shadow-2xl hand-drawn rotate-2 group-hover:-rotate-1 transition-transform duration-1000">
                         <div className="hand-drawn-fill">
                             <img
-                                src="https://images.unsplash.com/photo-1534066060855-321045237894?auto=format&fit=crop&q=80&w=1200"
+                                src="https://images.unsplash.com/photo-1523496922380-91d5afba98a3?auto=format&fit=crop&q=80&w=1200"
                                 alt="Aesthetic Yacht Lifestyle"
                                 className="w-full h-auto aspect-[4/5] object-cover filter contrast-110 saturate-50 group-hover:saturate-100 transition-all duration-1000"
                             />

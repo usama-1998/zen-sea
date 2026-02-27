@@ -26,10 +26,14 @@ export default function Footer({ openModal }: FooterProps) {
                     <div>
                         <h4 className="text-white text-xs tracking-[0.2em] uppercase mb-6 font-bold">The Chapters</h4>
                         <ul className="space-y-4">
-                            {['The Chart', 'Our Fleet', 'Currents', 'Captain\'s Log'].map((link, i) => (
+                            {[
+                                { name: 'The Chart', id: '#the-chart' },
+                                { name: 'Our Fleet', id: '#our-fleet' },
+                                { name: 'Currents', id: '#currents' }
+                            ].map((link, i) => (
                                 <li key={i}>
-                                    <a href="#" className="nav-link inline-block text-slate-400 hover:text-[#C5A880] text-sm transition-colors font-light">
-                                        {link}
+                                    <a href={link.id} className="nav-link inline-block text-slate-400 hover:text-[#C5A880] text-sm transition-colors font-light">
+                                        {link.name}
                                         <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
                                     </a>
                                 </li>
