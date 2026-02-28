@@ -26,20 +26,33 @@ body {
 
 /* The Hand-Drawn "Boiling" Magic */
 @keyframes wobble-border {
-  0% { border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; }
-  33% { border-radius: 235px 25px 245px 25px/25px 205px 25px 235px; }
-  66% { border-radius: 245px 20px 215px 10px/20px 245px 10px 245px; }
-  100% { border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; }
+  0% {
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  }
+
+  33% {
+    border-radius: 235px 25px 245px 25px/25px 205px 25px 235px;
+  }
+
+  66% {
+    border-radius: 245px 20px 215px 10px/20px 245px 10px 245px;
+  }
+
+  100% {
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  }
 }
 
 @utility hand-drawn {
   border: 1.5px solid currentColor;
   animation: wobble-border 6s infinite ease-in-out alternate;
 }
+
 @utility hand-drawn-alt {
   border: 1.5px solid currentColor;
   animation: wobble-border 7s infinite ease-in-out alternate-reverse;
 }
+
 @utility hand-drawn-fill {
   animation: wobble-border 8s infinite ease-in-out alternate;
   overflow: hidden;
@@ -51,6 +64,7 @@ body {
   display: inline-block;
   z-index: 1;
 }
+
 .watercolor-swipe::before {
   content: '';
   position: absolute;
@@ -58,7 +72,7 @@ body {
   bottom: 15%;
   width: 110%;
   height: 50%;
-  background: linear-gradient(90deg, rgba(0,119,182,0) 0%, rgba(0,119,182,0.3) 20%, rgba(197,168,128,0.3) 80%, rgba(197,168,128,0) 100%);
+  background: linear-gradient(90deg, rgba(0, 119, 182, 0) 0%, rgba(0, 119, 182, 0.3) 20%, rgba(197, 168, 128, 0.3) 80%, rgba(197, 168, 128, 0) 100%);
   z-index: -1;
   mix-blend-mode: multiply;
   filter: blur(2px);
@@ -67,6 +81,7 @@ body {
   transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 }
+
 .opacity-100.watercolor-swipe::before,
 .opacity-100 .watercolor-swipe::before {
   transform: scaleX(1) rotate(-2deg);
@@ -75,29 +90,52 @@ body {
 /* Sail Tape Texture */
 @utility sail-tape {
   background-color: #f4f0ec;
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(0,0,0,0.05);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   mask-image: url('data:image/svg+xml;utf8,<svg preserveAspectRatio="none" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,5 L2,0 L198,2 L200,8 L195,95 L200,100 L5,98 L0,95 Z" fill="black"/></svg>');
   mask-size: 100% 100%;
 }
 
 /* Floating Animations */
 @keyframes float {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(1deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
-@utility animate-float { animation: float 6s ease-in-out infinite; }
-@utility animate-float-delayed { animation: float 7s ease-in-out infinite 2s; }
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@utility animate-float-delayed {
+  animation: float 7s ease-in-out infinite 2s;
+}
 
 /* SVG Sketch Animation */
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@utility path-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@utility path-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
 
 /* Global Canvas Texture Overlay */
 @utility noise-bg {
   position: relative;
 }
+
 .noise-bg::after {
   content: "";
   position: fixed;
@@ -109,7 +147,10 @@ body {
 }
 
 /* Nav Wave Hover */
-@utility nav-link { position: relative; }
+@utility nav-link {
+  position: relative;
+}
+
 .nav-link svg {
   position: absolute;
   bottom: -10px;
@@ -120,45 +161,15 @@ body {
   stroke-dashoffset: 100;
   transition: stroke-dashoffset 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.nav-link:hover svg { stroke-dashoffset: 0; }
 
-@utility reveal-on-scroll { transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-
-/* Infinite Wave Slide */
-@keyframes slide-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.nav-link:hover svg {
+  stroke-dashoffset: 0;
 }
 
-@utility animate-slide-left {
-  animation: slide-left 20s linear infinite;
-  width: 200%;
-}
-@utility animate-slide-left-fast {
-  animation: slide-left 10s linear infinite;
-  width: 200%;
-}
-@utility animate-slide-left-slow {
-  animation: slide-left 30s linear infinite;
-  width: 200%;
+@utility reveal-on-scroll {
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Bioluminescent Particles */
-@keyframes particle-up {
-  0% { transform: translateY(100vh) scale(0); opacity: 0; }
-  20% { opacity: 1; transform: translateY(80vh) scale(1); box-shadow: 0 0 10px 2px rgba(197,168,128,0.8); }
-  80% { opacity: 0.8; transform: translateY(20vh) scale(1); box-shadow: 0 0 15px 4px rgba(0,119,182,0.6); }
-  100% { transform: translateY(-20vh) scale(0); opacity: 0; }
+html {
+  scroll-behavior: smooth;
 }
-
-@utility animate-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: white;
-  animation: particle-up 10s linear infinite;
-  pointer-events: none;
-}
-
-html { scroll-behavior: smooth; }

@@ -19,56 +19,52 @@ export default function Navigation({ openModal }: NavigationProps) {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-[#FBFBF9]/90 backdrop-blur-md py-4 border-b border-[#C5A880]/20 shadow-sm' : 'bg-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-700 ${isScrolled ? 'bg-[#050B14]/80 backdrop-blur-md py-4 border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]' : 'bg-transparent py-6'}`}>
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
                 <div className="relative group cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-                    <div className={`text-3xl font-[family-name:var(--font-caveat)] tracking-wide transition-colors duration-500 ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
-                        Zen Sea.
+                    <div className="text-3xl font-[family-name:var(--font-playfair)] tracking-wide text-white transition-colors duration-500">
+                        Zen Sea<span className="text-[#C5A880]">.</span>
                     </div>
-                    {/* Hand-drawn ocean wave under logo */}
-                    <svg className={`absolute -bottom-1 left-0 w-full h-3 transition-opacity duration-500 ${isScrolled ? 'text-[#0077b6] opacity-100' : 'opacity-0'}`} viewBox="0 0 100 20" preserveAspectRatio="none">
-                        <path className="path-draw" d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                    </svg>
                 </div>
 
-                <div className="hidden md:flex items-center space-x-10">
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-12">
                     {['The Chart', 'Our Fleet', 'Currents'].map((item) => (
                         <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`}
-                            className={`nav-link text-sm font-[family-name:var(--font-playfair)] italic tracking-wide transition-colors duration-300 ${isScrolled ? 'text-slate-600 hover:text-[#0077b6]' : 'text-white/90 hover:text-[#C5A880]'}`}>
+                            className="text-[10px] tracking-[0.2em] uppercase font-bold text-white/70 hover:text-[#C5A880] transition-colors duration-300 relative group">
                             {item}
-                            <svg viewBox="0 0 100 20" preserveAspectRatio="none" className={isScrolled ? 'text-[#0077b6]' : 'text-[#C5A880]'}>
-                                <path d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
+                            <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-[#C5A880] transition-all duration-300 group-hover:w-full" />
                         </a>
                     ))}
                     <button
                         onClick={() => openModal('Navbar Booking')}
-                        className={`px-8 py-3 text-xs tracking-[0.2em] uppercase transition-all duration-300 hand-drawn hover:-rotate-3 ${isScrolled
-                                ? 'text-white bg-slate-900 hover:bg-[#0077b6]'
-                                : 'text-white border-white bg-white/10 backdrop-blur-sm hover:bg-white hover:text-slate-900'
-                            }`}>
-                        Set Sail
+                        className={`group relative overflow-hidden flex items-center justify-center px-8 py-3 bg-white/5 border border-white/20 hover:border-[#C5A880]/50 transition-colors ${!isScrolled && 'backdrop-blur-sm'}`}>
+                        <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-500 ease-out z-0" />
+                        <span className="relative z-10 text-[10px] tracking-[0.2em] uppercase font-bold text-white transition-colors">
+                            Set Sail
+                        </span>
                     </button>
                 </div>
 
-                <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                    {mobileMenuOpen ? <X className={`w-6 h-6 ${isScrolled ? 'text-slate-900' : 'text-white'}`} /> : <Menu className={`w-6 h-6 ${isScrolled ? 'text-slate-900' : 'text-white'}`} />}
+                {/* Mobile Menu Toggle */}
+                <button className="md:hidden text-white/80 hover:text-white transition-colors p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
 
             {/* Mobile Dropdown */}
-            <div className={`md:hidden absolute top-full left-0 w-full bg-[#FBFBF9] border-b border-[#C5A880]/20 shadow-xl transition-all duration-500 overflow-hidden ${mobileMenuOpen ? 'max-h-[400px]' : 'max-h-0'}`}>
-                <div className="flex flex-col px-6 py-6 space-y-4 text-center">
+            <div className={`md:hidden absolute top-full left-0 w-full bg-[#050B14]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] transition-all duration-500 overflow-hidden ${mobileMenuOpen ? 'max-h-[400px]' : 'max-h-0'}`}>
+                <div className="flex flex-col px-6 py-8 space-y-6 text-center">
                     {['The Chart', 'Our Fleet', 'Currents'].map((item) => (
                         <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="text-lg font-[family-name:var(--font-playfair)] italic text-slate-600 py-2">
+                            className="text-lg font-[family-name:var(--font-playfair)] italic text-white/70 hover:text-white py-2 border-b border-white/5 mx-6">
                             {item}
                         </a>
                     ))}
                     <button
                         onClick={() => { setMobileMenuOpen(false); openModal('Mobile Nav Booking'); }}
-                        className="mt-4 px-6 py-4 bg-[#0077b6] text-white text-xs tracking-[0.2em] uppercase hand-drawn-fill mx-auto w-3/4">
+                        className="mt-6 px-6 py-4 bg-white/5 border border-[#C5A880]/50 text-white text-[10px] tracking-[0.3em] uppercase font-bold mx-auto w-3/4 hover:bg-[#C5A880] transition-colors">
                         Set Sail
                     </button>
                 </div>

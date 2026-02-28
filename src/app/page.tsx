@@ -33,11 +33,11 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#FBFBF9] overflow-x-hidden selection:bg-[#0077b6] selection:text-white noise-bg min-h-screen relative text-slate-800">
+    <div className="bg-[#050B14] overflow-x-hidden selection:bg-[#C5A880] selection:text-slate-900 noise-bg min-h-screen relative text-white">
 
       {/* BACKGROUND NAUTICAL CHARTS */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.04] reveal-on-scroll opacity-0">
-        <svg className="absolute top-0 left-0 w-[150%] h-[150%] text-[#0077b6]" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.02] reveal-on-scroll opacity-0">
+        <svg className="absolute top-0 left-0 w-[150%] h-[150%] text-white" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
           {/* Bathymetric depth lines */}
           <path className="path-draw" d="M -100 200 Q 200 100 500 350 T 1100 200" fill="none" stroke="currentColor" strokeWidth="2" />
           <path className="path-draw" d="M -100 220 Q 220 120 520 370 T 1100 220" fill="none" stroke="currentColor" strokeWidth="1" />
@@ -47,11 +47,11 @@ export default function Home() {
       </div>
 
       {/* Harbor Master Stamp */}
-      <div className="fixed bottom-40 left-10 w-48 h-48 rounded-full border-[3px] border-[#0077b6] opacity-[0.08] pointer-events-none rotate-[-15deg] flex items-center justify-center z-0 hand-drawn-alt mix-blend-multiply">
-        <div className="w-40 h-40 rounded-full border border-[#0077b6] flex flex-col items-center justify-center text-center">
-          <span className="font-[family-name:var(--font-playfair)] tracking-[0.4em] text-[10px] uppercase mt-2">Cleared for Departure</span>
-          <Anchor className="w-6 h-6 my-2 text-[#0077b6]" />
-          <span className="font-[family-name:var(--font-playfair)] tracking-[0.3em] text-[8px] uppercase">Sentosa Cove</span>
+      <div className="fixed bottom-40 left-10 w-48 h-48 rounded-full border-[3px] border-white/20 opacity-[0.05] pointer-events-none rotate-[-15deg] flex items-center justify-center z-0 hand-drawn-alt mix-blend-overlay">
+        <div className="w-40 h-40 rounded-full border border-white/20 flex flex-col items-center justify-center text-center">
+          <span className="font-[family-name:var(--font-playfair)] tracking-[0.4em] text-[10px] uppercase mt-2 text-white">Cleared for Departure</span>
+          <Anchor className="w-6 h-6 my-2 text-white" />
+          <span className="font-[family-name:var(--font-playfair)] tracking-[0.3em] text-[8px] uppercase text-white">Sentosa Cove</span>
         </div>
       </div>
 

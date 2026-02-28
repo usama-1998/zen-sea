@@ -1,68 +1,93 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function AboutSection() {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.2 }
+        );
+
+        const element = document.getElementById('the-chart');
+        if (element) observer.observe(element);
+
+        return () => {
+            if (element) observer.unobserve(element);
+        };
+    }, []);
+
     return (
-        <section id="the-chart" className="py-20 lg:py-28 px-6 lg:px-12 max-w-7xl mx-auto relative z-10">
-            {/* Floating Nautical Rope graphic */}
-            <svg className="absolute top-10 right-[35%] w-32 h-32 text-[#C5A880]/40 -rotate-12 hidden lg:block animate-float-delayed pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <path className="path-draw" d="M20 80 Q 50 10 80 80 Q 50 50 20 80" />
-                <path className="path-draw" d="M20 80 C 10 90 0 70 15 60" />
-            </svg>
+        <section id="the-chart" className="py-24 lg:py-32 relative z-10 bg-slate-950 overflow-hidden">
+            {/* Dark Ambient Glow */}
+            <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-[#C5A880]/5 rounded-full blur-[100px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 items-center">
-                <div className="relative reveal-on-scroll opacity-0 translate-y-12 -rotate-2 group animate-float">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
 
-                    {/* Sail Tape */}
-                    <div className="absolute -top-4 -left-6 w-32 h-10 sail-tape -rotate-12 z-20 flex items-center justify-center opacity-90 shadow-sm" />
-                    <div className="absolute -bottom-4 -right-4 w-24 h-8 sail-tape rotate-6 z-20 flex items-center justify-center opacity-90 shadow-sm" />
+                    {/* Left Side: Premium Image Layout */}
+                    <div className="relative group">
+                        {/* Floating Gold Border */}
+                        <div className="absolute -inset-4 border border-[#C5A880]/20 z-0 hidden lg:block transition-transform duration-700 group-hover:scale-105" />
 
-                    <div className="relative p-4 bg-white shadow-2xl hand-drawn rotate-2 group-hover:-rotate-1 transition-transform duration-1000">
-                        <div className="hand-drawn-fill">
+                        <div className="relative z-10 overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-slate-900">
                             <img
                                 src="https://images.unsplash.com/photo-1523496922380-91d5afba98a3?auto=format&fit=crop&q=80&w=1200"
                                 alt="Aesthetic Yacht Lifestyle"
-                                className="w-full h-auto aspect-[4/5] object-cover filter contrast-110 saturate-50 group-hover:saturate-100 transition-all duration-1000"
+                                className="w-full h-auto aspect-[4/5] object-cover filter contrast-110 saturate-50 group-hover:saturate-100 group-hover:scale-105 transition-all duration-1000"
                             />
+                            {/* Film Grain over Image */}
+                            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')] opacity-[0.1] mix-blend-overlay pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60" />
+                        </div>
+
+                        {/* Minimalist Quote Box */}
+                        <div className="absolute -bottom-8 -right-4 lg:-right-12 bg-[#050B14]/90 backdrop-blur-md p-8 lg:p-10 shadow-2xl max-w-sm z-30 border border-white/10 group-hover:border-[#C5A880]/30 transition-colors duration-700">
+                            <p className="font-[family-name:var(--font-playfair)] text-xl lg:text-2xl text-white/90 mb-4 leading-relaxed font-light">"The ocean stirs the heart, inspires the imagination..."</p>
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-[1px] bg-[#C5A880]" />
+                                <p className="text-[10px] tracking-[0.2em] text-[#C5A880] uppercase">Wyland</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="absolute -bottom-12 -right-4 md:-right-12 bg-[#FBFBF9] p-6 lg:p-8 shadow-xl max-w-xs hand-drawn-alt z-30 transform -rotate-6 border-[1.5px] border-[#0077b6] group-hover:rotate-0 transition-transform duration-700">
-                        <p className="font-[family-name:var(--font-caveat)] text-2xl lg:text-3xl text-slate-800 mb-2 leading-tight">"The ocean stirs the heart, inspires the imagination..."</p>
-                        <p className="text-xs tracking-widest text-[#0077b6] uppercase mt-4 font-[family-name:var(--font-playfair)] italic">— Wyland</p>
-                        {/* Ocean blue watercolor circle */}
-                        <svg className="absolute top-2 left-2 w-full h-full pointer-events-none opacity-30 text-[#0077b6]" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <ellipse cx="50" cy="50" rx="45" ry="30" fill="none" stroke="currentColor" strokeWidth="2" transform="rotate(-5 50 50)" className="path-draw" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div className="reveal-on-scroll opacity-0 translate-y-12" style={{ transitionDelay: '200ms' }}>
-                    <div className="flex items-center gap-4 mb-6">
-                        <svg className="w-16 h-4 text-[#C5A880]" viewBox="0 0 60 10">
-                            <path className="path-draw" d="M0 5 Q 15 0 30 5 T 60 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                        <span className="text-[#C5A880] text-xs tracking-[0.2em] uppercase font-bold">A Love Letter to the Ocean</span>
-                    </div>
-                    <h2 className="text-4xl lg:text-6xl font-[family-name:var(--font-playfair)] text-slate-900 mb-8 leading-tight relative inline-block">
-                        Crafted for the <br />
-                        <span className="italic text-slate-900 watercolor-swipe">Wild at Heart.</span>
-                    </h2>
-                    <p className="text-slate-600 font-light leading-relaxed mb-6 text-lg">
-                        We believe that every journey should feel entirely your own. Whether it’s a sun-drenched morning escaping the city or a candlelit evening anchored in a hidden cove, we weave your desires into reality.
-                    </p>
-                    <p className="font-[family-name:var(--font-caveat)] text-3xl lg:text-4xl text-[#0077b6] mb-12 -rotate-2 ml-4">
-                        It's not just a trip. It's an awakening...
-                    </p>
-
-                    <div className="grid grid-cols-2 gap-6 lg:gap-8 mb-4 border-t border-[#C5A880]/30 pt-8 relative">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FBFBF9] px-4 font-[family-name:var(--font-caveat)] text-slate-400">The Details</div>
-                        <div className="relative group p-4 hand-drawn hover:bg-white transition-colors text-center sm:text-left">
-                            <h4 className="text-3xl lg:text-4xl font-[family-name:var(--font-playfair)] text-slate-900 mb-1">Bespoke</h4>
-                            <p className="text-xs tracking-widest text-[#0077b6] uppercase font-bold mt-2">Tailored Experiences</p>
+                    {/* Right Side: Typography */}
+                    <div className="pt-8 lg:pt-0">
+                        <div className="flex items-center gap-4 mb-8">
+                            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#C5A880]" />
+                            <span className="text-[#C5A880] text-[10px] tracking-[0.3em] uppercase font-bold">A Love Letter</span>
                         </div>
-                        <div className="relative group p-4 hand-drawn-alt hover:bg-white transition-colors text-center sm:text-left">
-                            <h4 className="text-3xl lg:text-4xl font-[family-name:var(--font-playfair)] text-slate-900 mb-1">Soul</h4>
-                            <p className="text-xs tracking-widest text-[#0077b6] uppercase font-bold mt-2">Infused in Details</p>
+
+                        <h2 className="text-5xl lg:text-6xl font-[family-name:var(--font-playfair)] text-white/95 mb-8 leading-tight">
+                            Crafted for the <br />
+                            <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C5A880]">Wild at Heart.</span>
+                        </h2>
+
+                        <div className="space-y-6 text-white/50 font-light leading-relaxed text-sm lg:text-base border-l border-white/10 pl-6">
+                            <p>
+                                We believe that every journey should feel entirely your own. Whether it’s a sun-drenched morning escaping the city or a candlelit evening anchored in a hidden cove, we weave your desires into reality.
+                            </p>
+                            <p>
+                                It's not just a trip. It's an awakening.
+                            </p>
+                        </div>
+
+                        {/* Dark Glassmorphism Stats/Details */}
+                        <div className="grid grid-cols-2 gap-4 lg:gap-6 mt-12 pt-8 border-t border-white/10">
+                            <div className="p-6 bg-white/5 backdrop-blur-sm border border-white/5 hover:border-[#C5A880]/30 transition-all duration-500 group cursor-default">
+                                <h4 className="text-3xl font-[family-name:var(--font-playfair)] text-white mb-2 group-hover:text-[#C5A880] transition-colors">Bespoke</h4>
+                                <p className="text-[9px] tracking-[0.2em] text-white/40 uppercase">Tailored Experiences</p>
+                            </div>
+                            <div className="p-6 bg-white/5 backdrop-blur-sm border border-white/5 hover:border-[#C5A880]/30 transition-all duration-500 group cursor-default">
+                                <h4 className="text-3xl font-[family-name:var(--font-playfair)] text-white mb-2 group-hover:text-[#C5A880] transition-colors">Soul</h4>
+                                <p className="text-[9px] tracking-[0.2em] text-white/40 uppercase">Infused in Details</p>
+                            </div>
                         </div>
                     </div>
                 </div>

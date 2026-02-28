@@ -1,154 +1,181 @@
 "use client";
 
-import { ArrowDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { Play, Compass } from "lucide-react";
 
 interface HeroProps {
     openModal: (context: string) => void;
 }
 
 export default function Hero({ openModal }: HeroProps) {
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const [particles, setParticles] = useState<{ id: number; left: string; delay: string; duration: string }[]>([]);
+    const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 });
+    const [isLoaded, setIsLoaded] = useState(false);
+    const heroRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        // Generate random bioluminescent particles on client-side
-        const newParticles = Array.from({ length: 40 }).map((_, i) => ({
-            id: i,
-            left: `${Math.random() * 100}%`,
-            delay: `${Math.random() * 5}s`,
-            duration: `${8 + Math.random() * 7}s`,
-        }));
-        setParticles(newParticles);
+        // Trigger cinematic intro after a tiny delay
+        const timer = setTimeout(() => setIsLoaded(true), 100);
+
+        const handleMouseMove = (e: MouseEvent) => {
+            if (!heroRef.current) return;
+            const { clientX, clientY } = e;
+            const { innerWidth, innerHeight } = window;
+            const x = clientX / innerWidth;
+            const y = clientY / innerHeight;
+            setMousePosition({ x, y });
+        };
+
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener("mousemove", handleMouseMove);
+        };
     }, []);
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-        const { clientX, clientY } = e;
-        const xPos = (clientX / window.innerWidth - 0.5) * 20; // -10 to +10 range
-        const yPos = (clientY / window.innerHeight - 0.5) * 20;
-        setMousePos({ x: xPos, y: yPos });
+    // Subtle parallax effect for background
+    const videoParallax = {
+        transform: `translate(${(mousePosition.x - 0.5) * -40}px, ${(mousePosition.y - 0.5) * -40}px) scale(1.05)`,
+        transition: 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    };
+
+    // Foreground parallax
+    const contentParallax = {
+        transform: `translate(${(mousePosition.x - 0.5) * 30}px, ${(mousePosition.y - 0.5) * 30}px)`,
+        transition: 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    };
+
+    // Dynamic lighting that follows cursor
+    const glowStyle = {
+        background: `radial-gradient(circle 600px at ${Math.max(0, Math.min(mousePosition.x * 100, 100))}% ${Math.max(0, Math.min(mousePosition.y * 100, 100))}%, rgba(197, 168, 128, 0.15), transparent 80%)`,
+        transition: 'background 0.2s ease-out'
     };
 
     return (
-        <section
-            className="relative h-screen min-h-[700px] lg:min-h-[850px] w-full flex items-center justify-center overflow-hidden"
-            onMouseMove={handleMouseMove}
-        >
-            <div className="absolute inset-0 z-0 bg-slate-950">
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-[#0077b6]/30 to-slate-950/90 z-10 mix-blend-multiply pointer-events-none" />
+        <section ref={heroRef} className="relative h-screen min-h-[800px] w-full flex items-center justify-center overflow-hidden bg-slate-950">
+            {/* Cinematic Letterbox Opening */}
+            <div className={`absolute top-0 left-0 w-full bg-black z-[60] transition-all duration-[2000ms] ease-[cubic-bezier(0.77,0,0.175,1)] pointer-events-none ${isLoaded ? 'h-0 opacity-0' : 'h-1/2 opacity-100'}`} />
+            <div className={`absolute bottom-0 left-0 w-full bg-black z-[60] transition-all duration-[2000ms] ease-[cubic-bezier(0.77,0,0.175,1)] pointer-events-none ${isLoaded ? 'h-0 opacity-0' : 'h-1/2 opacity-100'}`} />
+
+            {/* Background Layer with Parallax */}
+            <div className="absolute inset-0 z-0 pointer-events-none" style={videoParallax}>
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/50 to-slate-950/95 z-10" />
                 <video
                     autoPlay loop muted playsInline poster="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=2000"
-                    className="w-full h-full object-cover scale-105 opacity-80 mix-blend-luminosity pointer-events-none"
-                    style={{ transform: `scale(1.05) translate(${mousePos.x * 0.2}px, ${mousePos.y * 0.2}px)` }}
+                    className="w-full h-full object-cover mix-blend-luminosity opacity-80"
                 >
                     <source src="https://assets.mixkit.co/videos/preview/mixkit-yacht-sailing-on-the-sea-11881-large.mp4" type="video/mp4" />
                 </video>
             </div>
 
-            {/* Glowing Bioluminescent Particles */}
-            <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                {particles.map((p) => (
-                    <div
-                        key={p.id}
-                        className="animate-particle"
-                        style={{
-                            left: p.left,
-                            animationDelay: p.delay,
-                            animationDuration: p.duration,
-                        }}
-                    />
-                ))}
+            {/* Mouse tracking glow */}
+            <div className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-1000" style={glowStyle} />
+
+            {/* Film Grain Overlay */}
+            <div
+                className="absolute inset-0 z-20 mix-blend-overlay opacity-[0.2] pointer-events-none"
+                style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
+            />
+
+            {/* Floating Navigation/Coordinates Deco */}
+            <div className={`absolute top-32 left-10 z-30 flex-col gap-2 font-mono text-[10px] tracking-[0.3em] text-white/50 hidden md:flex transition-all duration-1000 delay-[1500ms] ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+                <span className="animate-pulse">LAT 1° 17' N</span>
+                <span className="animate-pulse" style={{ animationDelay: '500ms' }}>LONG 103° 50' E</span>
+                <div className="h-16 w-[1px] bg-gradient-to-b from-[#C5A880]/50 to-transparent mt-2 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full bg-[#C5A880]" style={{ animation: 'slideDownHero 3s ease-in-out infinite' }} />
+                </div>
             </div>
 
-            {/* Floating Background Compass Rose in Hero */}
-            <div
-                className="absolute right-10 top-1/4 opacity-10 text-white z-10 pointer-events-none animate-[spin_120s_linear_infinite] hidden lg:block transition-transform duration-200 ease-out"
-                style={{ transform: `translate(${mousePos.x * -1}px, ${mousePos.y * -1}px)` }}
-            >
-                <svg width="400" height="400" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-                    <path d="M50 5 L53 47 L95 50 L53 53 L50 95 L47 53 L5 50 L47 47 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                </svg>
+            {/* Spinning Compass Decoration */}
+            <div className="absolute right-[-100px] top-1/4 opacity-[0.02] text-white z-10 pointer-events-none animate-[spin_100s_linear_infinite] hidden lg:block scale-[2.5]">
+                <Compass className="w-96 h-96" strokeWidth={0.5} />
             </div>
 
-            <div
-                className="relative z-20 text-center px-6 max-w-6xl mx-auto flex flex-col items-center mt-12 transition-transform duration-200 ease-out"
-                style={{ transform: `translate(${mousePos.x * 0.8}px, ${mousePos.y * 0.8}px)` }}
-            >
-                <div className="relative reveal-on-scroll opacity-0 translate-y-12 scale-95 rotate-2">
-                    <span className="font-[family-name:var(--font-caveat)] text-3xl md:text-5xl text-[#C5A880] -rotate-6 block mb-4 ml-4 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-                        Let the currents guide you...
-                    </span>
-                    <h1 className="text-5xl sm:text-7xl lg:text-[7rem] font-[family-name:var(--font-playfair)] text-white mb-2 leading-[0.9] drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)] relative inline-block">
-                        Write Your Story <br />
-                        <span className="italic font-light text-white/95">on the Water.</span>
+            {/* Main Content */}
+            <div className="relative z-30 px-6 max-w-7xl mx-auto flex flex-col items-center justify-center mt-12 w-full" style={contentParallax}>
 
-                        {/* Watercolor swipe under Hero */}
-                        <span
-                            className="absolute bottom-4 left-1/4 w-1/2 h-8 bg-gradient-to-r from-[#0077b6]/0 via-[#0077b6]/80 to-[#C5A880]/60 opacity-60 mix-blend-screen rounded-full -rotate-2 -z-10 animate-[scale-in_1.5s_cubic-bezier(0.22,1,0.36,1)_0.5s_forwards] origin-left scale-x-0 filter blur-[3px] transition-transform duration-200"
-                            style={{ transform: `translate(${mousePos.x * -0.5}px, ${mousePos.y * -0.5}px)` }}
-                        />
+                {/* Intro flair */}
+                <div className={`overflow-hidden mb-6 transition-all duration-1000 delay-[800ms] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="flex items-center gap-6 text-[#C5A880]">
+                        <div className="h-[1px] w-12 sm:w-24 bg-gradient-to-l from-[#C5A880] to-transparent" />
+                        <span className="font-[family-name:var(--font-caveat)] text-2xl md:text-4xl lg:text-5xl -rotate-2 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)] tracking-wider">
+                            Beyond the horizon
+                        </span>
+                        <div className="h-[1px] w-12 sm:w-24 bg-gradient-to-r from-[#C5A880] to-transparent" />
+                    </div>
+                </div>
+
+                {/* Huge Typography */}
+                <div className="relative mb-6 text-center">
+                    <h1 className={`text-[3.5rem] sm:text-[5.5rem] lg:text-[8rem] xl:text-[9rem] font-[family-name:var(--font-playfair)] text-white/95 leading-[0.9] tracking-tight drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] transition-all duration-[1500ms] delay-[1000ms] ${isLoaded ? 'opacity-100 scale-100 blur-none' : 'opacity-0 scale-105 blur-md'}`}>
+                        Uncharted <br />
+                        <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-[#C5A880] relative inline-block drop-shadow-none filter-none">
+                            Elegance.
+                            {/* Ambient glow around the word Elegance */}
+                            <div className="absolute -inset-4 bg-[#C5A880]/20 blur-2xl rounded-full -z-10 animate-pulse pointer-events-none mix-blend-screen" />
+                        </span>
                     </h1>
                 </div>
 
-                <p className="text-white/90 text-base md:text-xl font-light max-w-3xl mb-12 mt-10 reveal-on-scroll opacity-0 translate-y-12 drop-shadow-md" style={{ transitionDelay: '200ms' }}>
-                    We don't just charter yachts. We curate visceral, handcrafted escapes along Singapore's most breathtaking coastlines.
+                <p className={`text-white/70 text-sm sm:text-base md:text-xl font-light max-w-2xl text-center mb-14 mt-6 transition-all duration-1000 delay-[1300ms] ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    Discover a realm where the ocean's vastness meets unmatched luxury. Handcrafted voyages, tailored exclusively for the elite.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-6 lg:gap-8 reveal-on-scroll opacity-0 translate-y-12" style={{ transitionDelay: '300ms' }}>
+                {/* Interactive Glass Buttons */}
+                <div className={`flex flex-col sm:flex-row gap-6 lg:gap-10 transition-all duration-1000 delay-[1600ms] w-full sm:w-auto ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <button
                         onClick={() => openModal('Hero: Discover Fleet')}
-                        className="px-8 lg:px-10 py-3 lg:py-4 bg-[#C5A880] text-white text-xs tracking-[0.2em] uppercase font-bold hand-drawn-fill border-2 border-transparent hover:bg-[#0077b6] transition-all duration-500 transform hover:-translate-y-1 hover:rotate-2 shadow-[0_0_30px_rgba(197,168,128,0.4)] hover:shadow-[0_0_30px_rgba(0,119,182,0.6)]"
+                        className="group relative px-10 py-5 bg-white/5 backdrop-blur-md text-white text-xs tracking-[0.25em] uppercase font-bold border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-500 overflow-hidden w-full sm:w-auto"
                     >
-                        Meet The Fleet
+                        <div className="absolute inset-0 w-0 bg-gradient-to-r from-[#C5A880]/40 to-transparent group-hover:w-full transition-all duration-700 ease-out z-0" />
+                        <span className="relative z-10 flex items-center justify-center gap-3">
+                            Curate Your Voyage
+                            <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </span>
                     </button>
                     <button
                         onClick={() => openModal('Hero: Watch Film')}
-                        className="px-8 lg:px-10 py-3 lg:py-4 text-white text-xs tracking-[0.2em] uppercase font-bold hand-drawn hover:bg-white hover:text-slate-900 transition-all duration-500 backdrop-blur-md bg-white/5 flex items-center justify-center gap-3 border-white/50 animate-float"
+                        className="group relative px-10 py-5 text-white/80 hover:text-white text-xs tracking-[0.25em] uppercase font-bold flex items-center justify-center gap-4 transition-colors duration-500 w-full sm:w-auto"
                     >
-                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg> Watch Film
+                        <div className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:border-[#C5A880] group-hover:bg-[#C5A880]/10 group-hover:scale-110 transition-all duration-500 relative">
+                            {/* Inner ripple */}
+                            <div className="absolute inset-0 rounded-full border border-[#C5A880]/50 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite] opacity-0 group-hover:opacity-100" />
+                            <Play className="w-4 h-4 ml-1 fill-current" />
+                        </div>
+                        Watch The Film
                     </button>
                 </div>
-            </div>
 
-            {/* Scroll Indicator */}
-            <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center opacity-70 animate-bounce cursor-pointer" onClick={() => window.scrollTo(0, window.innerHeight)}>
-                <span className="font-[family-name:var(--font-caveat)] text-2xl text-[#C5A880] mb-2 -rotate-3">Dive in</span>
-                <ArrowDown className="w-6 h-6 text-white" />
-            </div>
-
-            {/* Animated Multi-Layer Hand-drawn ocean waves */}
-            <div className="absolute bottom-0 left-0 w-full z-20 h-24 overflow-hidden pointer-events-none translate-y-1">
-                {/* Back Layer - Slow */}
-                <div className="absolute bottom-0 left-0 flex h-full animate-slide-left-slow opacity-40 text-[#FBFBF9]/80 mix-blend-screen">
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,80 C240,120 480,40 720,80 C960,120 1200,40 1440,80 L1440,120 L0,120 Z"></path>
-                    </svg>
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,80 C240,120 480,40 720,80 C960,120 1200,40 1440,80 L1440,120 L0,120 Z"></path>
-                    </svg>
-                </div>
-
-                {/* Middle Layer - Medium */}
-                <div className="absolute bottom-0 left-0 flex h-full animate-slide-left opacity-70 text-[#e8e4db] mix-blend-normal transform translate-y-[4px]">
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,60 C320,10 540,110 820,60 C1100,10 1320,110 1440,60 L1440,120 L0,120 Z"></path>
-                    </svg>
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,60 C320,10 540,110 820,60 C1100,10 1320,110 1440,60 L1440,120 L0,120 Z"></path>
-                    </svg>
-                </div>
-
-                {/* Front Layer - Fast */}
-                <div className="absolute bottom-0 left-0 flex h-full animate-slide-left-fast opacity-100 text-[#FBFBF9] drop-shadow-[0_-4px_8px_rgba(0,0,0,0.15)] transform translate-y-[8px]">
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
-                    </svg>
-                    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" className="h-full w-full fill-current">
-                        <path d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
-                    </svg>
+                {/* Vertical Scroll Indicator - Moved inside content flow so it never overlaps buttons */}
+                <div
+                    className={`mt-12 sm:mt-16 flex flex-col items-center transition-all duration-1000 delay-[2000ms] cursor-pointer hover:opacity-100 ${isLoaded ? 'opacity-60' : 'opacity-0'}`}
+                    onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+                >
+                    <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white/20 to-[#C5A880] overflow-hidden relative mb-4">
+                        <div className="absolute top-0 left-0 w-full h-[50%] bg-white" style={{ animation: 'slideDownHero 2.5s ease-in-out infinite' }} />
+                    </div>
+                    <span className="font-mono text-[9px] tracking-[0.4em] text-white uppercase text-center w-max opacity-80">
+                        Scroll
+                    </span>
                 </div>
             </div>
+
+// ... existing Hero code above ...
+            {/* Hand-drawn ocean waves paper tear */}
+            <div className="absolute bottom-0 left-0 w-full z-40 translate-y-[2px] pointer-events-none">
+                <svg viewBox="0 0 1440 120" className="w-full h-auto text-slate-950 fill-current drop-shadow-lg">
+                    <path d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <style>{`
+                @keyframes slideDownHero {
+                    0% { transform: translateY(-100%); opacity: 0; }
+                    50% { transform: translateY(100%); opacity: 1; }
+                    100% { transform: translateY(300%); opacity: 0; }
+                }
+            `}</style>
         </section>
     );
 }

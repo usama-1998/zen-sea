@@ -5,18 +5,19 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 ## Features
 - **Next.js 15 (App Router)** & **React 19**
 - Carefully extracted Component-Based Architecture for easy customisations.
-- Watercolor effects, wobble-borders, and bespoke nautical CSS.
-- Highly optimized typography with `next/font/google`.
-- Mobile-responsive navigation and interactive Modals.
+- **Premium Dark Glassmorphism Theme**: Cohesive cinematic design featuring deep slate and navy tones, `#C5A880` gold accents, and frosted glass elements across every section.
+- **Interactive Micro-Animations**: Advanced parallax effects, dynamic cursor lighting, and `IntersectionObserver` scroll reveals for an immersive experience.
+- Highly optimized typography with `next/font/google` (Playfair Display, Caveat, Inter).
+- Mobile-responsive navigation and fully-styled interactive Modals.
 
 ## Recent Updates
+- **Site-Wide Dark Theme Layout**: Completely overhauled the entire landing page, ensuring all sections (Hero, About, Experiences, Fleet, Features, Footer, Navigation) seamlessly transition with deep '#050B14' backgrounds and edge-to-edge dark layouts.
 - Completely redesigned the Footer to feature a mind-blowing ambient ocean glow and massive semantic typography watermark.
-- Completely removed the CTA section for a cleaner layout.
-- Fixed layout issues where the "Chapters Waiting" section boxes were cut off from the bottom by constraining flex image children.
+- Upgraded the Hero section with letterbox cinematic intros, following cursor glow, and animated typography.
+- Refined the About and Experiences sections with full-width dark containers and premium image treatments (film grain, contrast filters).
+- Overhauled the Modal design into a split-layout dark glass pane with stylized form inputs.
 - Resolved server hydration errors by properly handling client-side modal states.
-- Replaced placeholder imagery with high-quality curated assets.
-- Improved background SVG animations and visibility.
-- Fixed broken footer navigation links to properly anchor to page sections.
+
 ## Getting Started
 
 First, install the dependencies if they aren't already:
