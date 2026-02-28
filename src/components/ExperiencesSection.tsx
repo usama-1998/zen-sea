@@ -27,7 +27,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                         <img
                             src="https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&q=80&w=1200"
                             alt="Curated Celebrations on Yacht"
-                            className="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-1000"
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-1000"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/40 to-transparent flex flex-col justify-end p-8 md:p-12">
                             <GlassWater className="w-6 h-6 lg:w-8 lg:h-8 text-[#C5A880] mb-4 transform group-hover:-rotate-12 transition-transform duration-500" />
@@ -51,7 +51,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                             <img
                                 src="https://images.unsplash.com/photo-1551524164-687a55dd1126?auto=format&fit=crop&q=80&w=800"
                                 alt="Jet Ski Thrills"
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 filter sepia-[20%]"
+                                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 filter sepia-[20%]"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-5">
                                 <h3 className="text-xl lg:text-2xl font-[family-name:var(--font-playfair)] text-white mb-2">Ocean Thrills</h3>
@@ -70,7 +70,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                             <img
                                 src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?auto=format&fit=crop&q=80&w=800"
                                 alt="Marine Tours"
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 filter contrast-125"
+                                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 filter contrast-125"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-5">
                                 <h3 className="text-xl lg:text-2xl font-[family-name:var(--font-playfair)] text-white mb-2">Marine Escapes</h3>

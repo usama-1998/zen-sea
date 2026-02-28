@@ -10,6 +10,7 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - Mobile-responsive navigation and interactive Modals.
 
 ## Recent Updates
+- Fixed layout issues where the "Chapters Waiting" section boxes were cut off from the bottom by constraining flex image children.
 - Resolved server hydration errors by properly handling client-side modal states.
 - Replaced placeholder imagery with high-quality curated assets.
 - Improved background SVG animations and visibility.
