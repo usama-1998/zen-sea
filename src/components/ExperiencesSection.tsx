@@ -29,15 +29,32 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
     }, []);
 
     return (
-        <section id="currents" className="py-24 lg:py-32 relative z-10 bg-slate-950 overflow-hidden">
-            {/* Ambient Background Gradient */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0077b6]/5 rounded-full blur-[120px] pointer-events-none" />
+        <section id="currents" className="py-24 lg:py-32 relative z-10 bg-[#050B14] overflow-hidden">
+            {/* Ambient Orbs */}
+            <div
+                className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-20"
+                style={{
+                    background: "radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)",
+                    top: "5%",
+                    right: "0%",
+                    filter: "blur(100px)",
+                }}
+            />
+            <div
+                className="absolute w-[400px] h-[400px] rounded-full pointer-events-none z-0 opacity-20"
+                style={{
+                    background: "radial-gradient(circle, rgba(197,168,128,0.3) 0%, transparent 70%)",
+                    bottom: "10%",
+                    left: "5%",
+                    filter: "blur(90px)",
+                }}
+            />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-                <div className={`text-center mb-16 lg:mb-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="flex items-center justify-center gap-4 mb-6">
+                <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    <div className="flex items-center justify-center gap-3 mb-6">
                         <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-[#C5A880]" />
-                        <span className="text-[#C5A880] text-[10px] tracking-[0.3em] uppercase font-bold">Curated Moments</span>
+                        <span className="text-[#C5A880] text-[10px] tracking-[0.35em] uppercase font-bold">Curated Moments</span>
                         <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-[#C5A880]" />
                     </div>
                     <h2 className="text-4xl lg:text-6xl font-[family-name:var(--font-playfair)] text-white relative inline-block">
@@ -50,10 +67,10 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                 <div className={`grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px] lg:h-[700px] transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
 
                     {/* Main Large Feature */}
-                    <div className="md:col-span-8 relative group overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.5)] bg-slate-900 cursor-pointer" onClick={() => openModal('Experience: Celebrations')}>
+                    <div className="md:col-span-8 relative group overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] bg-white/[0.03] cursor-pointer" onClick={() => openModal('Experience: Celebrations')}>
 
                         {/* Hover Glow Effect */}
-                        <div className="absolute inset-0 bg-[#C5A880]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay z-20 pointer-events-none" />
+                        <div className="absolute inset-0 bg-[#C5A880]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay z-20 pointer-events-none rounded-2xl" />
 
                         <img
                             src="https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?auto=format&fit=crop&q=80&w=1200"
@@ -64,7 +81,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#050B14] via-[#050B14]/40 to-transparent z-10" />
 
                         {/* Floating Tag */}
-                        <div className="absolute top-8 left-8 z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 flex items-center gap-2 rounded-full transform -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="absolute top-6 left-6 z-20 bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-2 flex items-center gap-2 rounded-full transform -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                             <div className="w-2 h-2 rounded-full bg-[#C5A880] animate-pulse" />
                             <span className="text-[9px] tracking-[0.2em] text-white uppercase font-bold">Featured</span>
                         </div>
@@ -73,7 +90,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                             <GlassWater className="w-6 h-6 lg:w-8 lg:h-8 text-[#C5A880] mb-6 transform group-hover:-rotate-12 transition-transform duration-500" />
                             <h3 className="text-3xl md:text-5xl font-[family-name:var(--font-playfair)] text-white mb-4 drop-shadow-md">Curated Celebrations</h3>
                             <p className="text-white/60 font-light text-sm lg:text-base max-w-md mb-8 group-hover:text-white/80 transition-colors duration-500">
-                                Because life's most beautiful moments deserve a backdrop that takes your breath away.
+                                Because life&apos;s most beautiful moments deserve a backdrop that takes your breath away.
                             </p>
 
                             <div className="flex items-center gap-4 text-[#C5A880] text-[10px] tracking-[0.2em] uppercase font-bold group/btn">
@@ -92,7 +109,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                     <div className="md:col-span-4 flex flex-col gap-6 h-[600px] md:h-full">
 
                         {/* Small Feature 1 */}
-                        <div className="relative flex-1 group overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-slate-900 cursor-pointer" onClick={() => openModal('Experience: Ocean Thrills')}>
+                        <div className="relative flex-1 group overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] bg-white/[0.03] cursor-pointer" onClick={() => openModal('Experience: Ocean Thrills')}>
                             <img
                                 src="https://images.unsplash.com/photo-1551524164-687a55dd1126?auto=format&fit=crop&q=80&w=800"
                                 alt="Jet Ski Thrills"
@@ -111,7 +128,7 @@ export default function ExperiencesSection({ openModal }: ExperiencesProps) {
                         </div>
 
                         {/* Small Feature 2 */}
-                        <div className="relative flex-1 group overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] bg-slate-900 cursor-pointer" onClick={() => openModal('Experience: Marine Escapes')}>
+                        <div className="relative flex-1 group overflow-hidden rounded-2xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] bg-white/[0.03] cursor-pointer" onClick={() => openModal('Experience: Marine Escapes')}>
                             <img
                                 src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?auto=format&fit=crop&q=80&w=800"
                                 alt="Marine Tours"

@@ -32,14 +32,14 @@ export default function Modal({ isOpen, context, closeModal }: ModalProps) {
             {/* Modal Background click to close */}
             <div className="absolute inset-0" onClick={closeModal}></div>
 
-            <div className={`relative w-full max-w-5xl bg-slate-900 border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col md:flex-row overflow-hidden transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${isRendered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`}>
+            <div className={`relative w-full max-w-5xl bg-slate-900 border border-white/10 rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col md:flex-row overflow-hidden transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${isRendered ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`}>
 
                 {/* Left side: Premium Image */}
                 <div className="w-full md:w-5/12 h-48 md:h-auto relative">
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-10 md:hidden" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900 z-10 hidden md:block" />
                     <img
-                        src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=2000"
+                        src="/images/yacht-modal.png"
                         alt="Luxury Yacht Details"
                         className="w-full h-full object-cover"
                     />
@@ -80,22 +80,22 @@ export default function Modal({ isOpen, context, closeModal }: ModalProps) {
                         <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); closeModal(); }}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="group relative">
-                                    <input type="text" id="name" required className="w-full bg-white/5 border border-white/10 px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Name" />
+                                    <input type="text" id="name" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Name" />
                                     <label htmlFor="name" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Your Name</label>
                                 </div>
                                 <div className="group relative">
-                                    <input type="email" id="email" required className="w-full bg-white/5 border border-white/10 px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Email" />
+                                    <input type="email" id="email" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Email" />
                                     <label htmlFor="email" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Your Email</label>
                                 </div>
                             </div>
 
                             <div className="group relative">
-                                <textarea id="message" required rows={3} className="w-full bg-white/5 border border-white/10 px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all resize-none peer placeholder-transparent text-sm" placeholder="Message"></textarea>
+                                <textarea id="message" required rows={3} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all resize-none peer placeholder-transparent text-sm" placeholder="Message"></textarea>
                                 <label htmlFor="message" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Envisioned Voyage</label>
                             </div>
 
-                            <button type="submit" className="group relative w-full overflow-hidden bg-white mt-4 flex items-center justify-center p-5 cursor-pointer">
-                                <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0" />
+                            <button type="submit" className="group relative w-full overflow-hidden bg-white mt-4 flex items-center justify-center p-5 cursor-pointer rounded-full">
+                                <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 rounded-full" />
                                 <span className="relative z-10 text-slate-900 group-hover:text-white text-[10px] tracking-[0.3em] uppercase font-bold flex items-center transition-colors duration-500">
                                     Submit Inquiry
                                     <Send className="w-3 h-3 ml-3 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-500" />

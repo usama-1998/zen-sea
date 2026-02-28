@@ -8,10 +8,27 @@ interface FooterProps {
 
 export default function Footer({ openModal }: FooterProps) {
     return (
-        <footer id="contact" className="relative bg-[#050B14] text-white overflow-hidden pt-32 flex flex-col justify-between min-h-[90vh] border-t border-white/5">
-            {/* Mind-blowing ambient ocean glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#0077b6] rounded-full blur-[150px] opacity-20 pointer-events-none animate-[pulse_6s_ease-in-out_infinite]" />
-            <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#C5A880] rounded-full blur-[200px] opacity-10 pointer-events-none" />
+        <footer id="contact" className="relative bg-[#050B14] text-white overflow-hidden pt-32 flex flex-col justify-between min-h-[90vh]">
+            {/* Ambient Orbs */}
+            <div
+                className="absolute w-[600px] h-[600px] rounded-full pointer-events-none z-0 opacity-15"
+                style={{
+                    background: "radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)",
+                    top: "0%",
+                    left: "30%",
+                    filter: "blur(120px)",
+                    animation: "pulse 6s ease-in-out infinite",
+                }}
+            />
+            <div
+                className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-10"
+                style={{
+                    background: "radial-gradient(circle, rgba(197,168,128,0.3) 0%, transparent 70%)",
+                    bottom: "0%",
+                    right: "0%",
+                    filter: "blur(150px)",
+                }}
+            />
 
             {/* Top Interactive Area */}
             <div className="max-w-[100rem] mx-auto px-6 lg:px-12 relative z-10 w-full flex-grow flex flex-col items-center">
@@ -22,10 +39,10 @@ export default function Footer({ openModal }: FooterProps) {
                         Join the <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">Currents.</span>
                     </h3>
 
-                    {/* Sleek Newsletter Input */}
+                    {/* Newsletter Input — Pill style */}
                     <div className="relative group w-full max-w-md mx-auto">
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0077b6] to-[#C5A880] rounded-none blur opacity-0 group-focus-within:opacity-20 transition duration-1000 group-hover:duration-200"></div>
-                        <div className="relative flex items-center bg-transparent border-b border-white/20 focus-within:border-[#C5A880] pb-4 transition-all">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#0077b6]/30 to-[#C5A880]/30 rounded-full blur opacity-0 group-focus-within:opacity-40 transition duration-1000 group-hover:duration-200" />
+                        <div className="relative flex items-center bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-full px-6 py-4 focus-within:border-[#C5A880]/30 transition-all">
                             <input
                                 type="email"
                                 placeholder="Whisper your email..."
@@ -33,7 +50,7 @@ export default function Footer({ openModal }: FooterProps) {
                             />
                             <button
                                 onClick={() => openModal('Newsletter Signup')}
-                                className="text-white/40 hover:text-[#C5A880] transition-colors ml-4 uppercase text-xs tracking-[0.2em] flex items-center gap-2 group/btn font-bold"
+                                className="text-white/40 hover:text-[#C5A880] transition-colors ml-4 uppercase text-xs tracking-[0.2em] flex items-center gap-2 group/btn font-bold shrink-0"
                             >
                                 Send <Send className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                             </button>
@@ -70,7 +87,7 @@ export default function Footer({ openModal }: FooterProps) {
                 </div>
             </div>
 
-            {/* Mind-Blowing Huge Typography Container */}
+            {/* Bottom Typography + Social */}
             <div className="w-full relative mt-auto flex flex-col items-center justify-end overflow-hidden z-0 pb-6 sm:pb-0">
                 {/* The huge text */}
                 <h1 className="text-[25vw] sm:text-[22vw] leading-[0.75] font-black tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-50 md:opacity-100"
@@ -81,17 +98,17 @@ export default function Footer({ openModal }: FooterProps) {
                     ZEN SEA
                 </h1>
 
-                {/* Floating Socials over the text */}
+                {/* Floating Socials */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-6 sm:gap-12 z-10 w-full justify-center px-4">
-                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md hover:bg-white/10 hover:border-[#C5A880]/50 hover:text-[#C5A880] transition-all duration-500 hover:scale-110">
+                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md bg-white/[0.03] hover:bg-white/[0.08] hover:border-[#C5A880]/30 hover:text-[#C5A880] transition-all duration-500 hover:scale-110">
                         <Instagram className="w-5 h-5 sm:w-8 sm:h-8" />
                     </a>
-                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md hover:bg-white/10 hover:border-[#C5A880]/50 hover:text-[#C5A880] transition-all duration-500 hover:scale-110">
+                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md bg-white/[0.03] hover:bg-white/[0.08] hover:border-[#C5A880]/30 hover:text-[#C5A880] transition-all duration-500 hover:scale-110">
                         <Facebook className="w-5 h-5 sm:w-8 sm:h-8" />
                     </a>
                 </div>
 
-                {/* Bottom Bar overlaying the text */}
+                {/* Bottom Bar */}
                 <div className="absolute bottom-4 sm:bottom-8 flex flex-col md:flex-row justify-between items-center w-full px-8 text-[9px] sm:text-[10px] text-white/30 font-bold tracking-[0.3em] uppercase z-10">
                     <span>© {new Date().getFullYear()} ZEN SEA YACHT CHARTER</span>
 

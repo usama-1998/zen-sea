@@ -38,20 +38,39 @@ export default function FleetSection({ fleet, openModal }: FleetProps) {
         };
     }, []);
 
+    // Duplicate for seamless infinite loop
+    const marqueeItems = [...fleet, ...fleet];
+
     return (
         <section id="our-fleet" className="py-24 lg:py-32 bg-[#050B14] text-white relative z-10 overflow-hidden">
-            {/* Ambient Lighting */}
-            <div className="absolute top-1/4 -left-64 w-[800px] h-[800px] bg-[#0077b6]/5 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-1/4 -right-64 w-[600px] h-[600px] bg-[#C5A880]/5 rounded-full blur-[120px] pointer-events-none" />
+            {/* Ambient Orbs */}
+            <div
+                className="absolute w-[600px] h-[600px] rounded-full pointer-events-none z-0 opacity-20"
+                style={{
+                    background: "radial-gradient(circle, rgba(56,189,248,0.25) 0%, transparent 70%)",
+                    top: "10%",
+                    left: "-10%",
+                    filter: "blur(100px)",
+                }}
+            />
+            <div
+                className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0 opacity-20"
+                style={{
+                    background: "radial-gradient(circle, rgba(197,168,128,0.25) 0%, transparent 70%)",
+                    bottom: "10%",
+                    right: "-5%",
+                    filter: "blur(100px)",
+                }}
+            />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-                <div className={`flex flex-col md:flex-row justify-between items-end mb-24 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                <div className={`flex flex-col md:flex-row justify-between items-end mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="max-w-2xl relative mb-8 md:mb-0">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#C5A880]" />
-                            <span className="text-[#C5A880] text-[10px] tracking-[0.3em] uppercase font-bold">The Collection</span>
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="h-[1px] w-10 bg-gradient-to-r from-transparent to-[#C5A880]" />
+                            <span className="text-[#C5A880] text-[10px] tracking-[0.35em] uppercase font-bold">The Collection</span>
                         </div>
-                        <h2 className="text-5xl lg:text-7xl font-[family-name:var(--font-playfair)] mb-4">
+                        <h2 className="text-4xl lg:text-6xl font-[family-name:var(--font-playfair)] mb-4">
                             Vessels with <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C5A880]">Soul.</span>
                         </h2>
                     </div>
@@ -62,32 +81,43 @@ export default function FleetSection({ fleet, openModal }: FleetProps) {
                         </p>
                     </div>
                 </div>
+            </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-                    {fleet.map((yacht, index) => (
+            {/* Infinite Horizontal Scroll Marquee */}
+            <div className="relative w-full overflow-hidden">
+                {/* Fade edges */}
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#050B14] to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#050B14] to-transparent z-10 pointer-events-none" />
+
+                <div
+                    className={`flex gap-8 w-max transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+                    style={{
+                        animation: "fleetMarquee 35s linear infinite",
+                    }}
+                >
+                    {marqueeItems.map((yacht, index) => (
                         <div
-                            key={yacht.name}
-                            className={`group relative transition-all duration-1000 backdrop-blur-sm ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
-                            style={{ transitionDelay: `${index * 200}ms` }}
+                            key={`${yacht.name}-${index}`}
+                            className="group w-[340px] lg:w-[380px] shrink-0"
                         >
-                            <div className="bg-white/5 border border-white/10 p-4 lg:p-5 hover:bg-white/10 hover:border-[#C5A880]/30 transition-all duration-700 h-full flex flex-col group">
+                            <div className="bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-2xl p-4 lg:p-5 hover:bg-white/[0.06] hover:border-[#C5A880]/20 transition-all duration-700 h-full flex flex-col shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
 
                                 {/* Image Container */}
-                                <div className="overflow-hidden relative aspect-[4/5] mb-8 border border-white/5">
+                                <div className="overflow-hidden relative aspect-[4/5] mb-8 rounded-xl">
                                     <img
                                         src={yacht.image}
                                         alt={yacht.name}
                                         className="w-full h-full object-cover filter brightness-75 group-hover:brightness-100 transform group-hover:scale-110 transition-all duration-[2000ms] ease-out"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#050B14] via-transparent to-transparent opacity-80" />
 
                                     {/* Top Note Overlay */}
-                                    <div className="absolute top-4 left-4 z-10 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-sm transform -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div className="absolute top-4 left-4 z-10 bg-white/10 backdrop-blur-xl border border-white/20 px-3 py-1.5 rounded-full transform -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                                         <p className="text-[9px] tracking-[0.2em] text-white uppercase font-bold">{yacht.note}</p>
                                     </div>
 
                                     {/* Hover Glow */}
-                                    <div className="absolute inset-0 bg-[#C5A880]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay pointer-events-none" />
+                                    <div className="absolute inset-0 bg-[#C5A880]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay pointer-events-none rounded-xl" />
                                 </div>
 
                                 {/* Content Details */}
@@ -126,10 +156,10 @@ export default function FleetSection({ fleet, openModal }: FleetProps) {
 
                                         <button
                                             onClick={() => openModal(`Charter: ${yacht.name}`)}
-                                            className="group/btn relative overflow-hidden flex items-center justify-center p-4 bg-white/5 border border-white/10 hover:border-[#C5A880]/50 transition-colors"
+                                            className="group/btn relative overflow-hidden flex items-center justify-center px-5 py-3 bg-white/[0.06] border border-white/10 hover:border-[#C5A880]/40 rounded-full transition-all duration-500"
                                         >
-                                            <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover/btn:w-full transition-all duration-500 ease-out z-0" />
-                                            <span className="relative z-10 flex items-center gap-3 text-[10px] tracking-[0.2em] uppercase text-white font-bold transition-colors">
+                                            <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover/btn:w-full transition-all duration-500 ease-out z-0 rounded-full" />
+                                            <span className="relative z-10 flex items-center gap-2.5 text-[10px] tracking-[0.2em] uppercase text-white font-bold transition-colors">
                                                 Reserve
                                                 <ArrowRight className="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" />
                                             </span>
@@ -141,6 +171,13 @@ export default function FleetSection({ fleet, openModal }: FleetProps) {
                     ))}
                 </div>
             </div>
+
+            <style>{`
+                @keyframes fleetMarquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+            `}</style>
         </section>
     );
 }

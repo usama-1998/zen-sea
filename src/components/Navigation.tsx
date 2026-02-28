@@ -38,8 +38,8 @@ export default function Navigation({ openModal }: NavigationProps) {
                     ))}
                     <button
                         onClick={() => openModal('Navbar Booking')}
-                        className={`group relative overflow-hidden flex items-center justify-center px-8 py-3 bg-white/5 border border-white/20 hover:border-[#C5A880]/50 transition-colors ${!isScrolled && 'backdrop-blur-sm'}`}>
-                        <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-500 ease-out z-0" />
+                        className={`group relative overflow-hidden flex items-center justify-center px-8 py-3 bg-white/5 border border-white/20 hover:border-[#C5A880]/50 rounded-full transition-colors ${!isScrolled && 'backdrop-blur-sm'}`}>
+                        <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-500 ease-out z-0 rounded-full" />
                         <span className="relative z-10 text-[10px] tracking-[0.2em] uppercase font-bold text-white transition-colors">
                             Set Sail
                         </span>
@@ -64,7 +64,7 @@ export default function Navigation({ openModal }: NavigationProps) {
                     ))}
                     <button
                         onClick={() => { setMobileMenuOpen(false); openModal('Mobile Nav Booking'); }}
-                        className="mt-6 px-6 py-4 bg-white/5 border border-[#C5A880]/50 text-white text-[10px] tracking-[0.3em] uppercase font-bold mx-auto w-3/4 hover:bg-[#C5A880] transition-colors">
+                        className="mt-6 px-6 py-4 bg-white/5 border border-[#C5A880]/50 text-white text-[10px] tracking-[0.3em] uppercase font-bold mx-auto w-3/4 hover:bg-[#C5A880] transition-colors rounded-full">
                         Set Sail
                     </button>
                 </div>

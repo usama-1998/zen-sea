@@ -14,7 +14,7 @@ import Footer from "@/components/Footer";
 import Modal from "@/components/Modal";
 
 const fleet = [
-  { name: 'The Wanderer', model: 'Helium I', guests: 13, cabins: 2, price: '$1088', rating: 4.9, note: "For intimate whispers...", image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1000' },
+  { name: 'The Wanderer', model: 'Helium I', guests: 13, cabins: 2, price: '$1088', rating: 4.9, note: "For intimate whispers...", image: '/images/yacht-wanderer.png' },
   { name: 'Ocean Song', model: 'Lagoon II', guests: 30, cabins: 3, price: '$988', rating: 4.8, note: "Our beloved classic!", image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=1000' },
   { name: 'Stargazer', model: 'Azimut III', guests: 25, cabins: 3, price: '$1188', rating: 5.0, note: "Pure poetry in motion", image: 'https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&q=80&w=1000' }
 ];
