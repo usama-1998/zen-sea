@@ -10,7 +10,6 @@ import AboutSection from "@/components/AboutSection";
 import FleetSection from "@/components/FleetSection";
 import ExperiencesSection from "@/components/ExperiencesSection";
 import FeaturesSection from "@/components/FeaturesSection";
-import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import Modal from "@/components/Modal";
 
@@ -62,7 +61,6 @@ export default function Home() {
       <FleetSection fleet={fleet} openModal={openModal} />
       <ExperiencesSection openModal={openModal} />
       <FeaturesSection />
-      <CTASection openModal={openModal} />
       <Footer openModal={openModal} />
       <Modal isOpen={modalState.isOpen} context={modalState.context} closeModal={closeModal} />
     </div>
