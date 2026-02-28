@@ -10,6 +10,8 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - Mobile-responsive navigation and interactive Modals.
 
 ## Recent Updates
+- Completely redesigned the Footer to feature a mind-blowing ambient ocean glow and massive semantic typography watermark.
+- Removed "Set Your Spirit Free." text from the CTA section for a cleaner layout.
 - Fixed layout issues where the "Chapters Waiting" section boxes were cut off from the bottom by constraining flex image children.
 - Resolved server hydration errors by properly handling client-side modal states.
 - Replaced placeholder imagery with high-quality curated assets.

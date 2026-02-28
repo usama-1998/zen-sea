@@ -13,10 +13,6 @@ export default function CTASection({ openModal }: CTAProps) {
                 <div className="inline-block mb-8 border-2 border-[#C5A880] px-6 py-2 hand-drawn-alt bg-slate-900/50 backdrop-blur-md">
                     <span className="text-[#C5A880] text-[10px] lg:text-xs tracking-[0.3em] uppercase font-bold">Your Horizon Awaits</span>
                 </div>
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-[family-name:var(--font-playfair)] text-white mb-6 lg:mb-8 relative inline-block drop-shadow-xl">
-                    Set Your <br /> Spirit Free.
-                    <span className="absolute bottom-4 left-1/4 w-1/2 h-8 bg-gradient-to-r from-[#0077b6]/0 via-[#0077b6]/80 to-[#C5A880]/60 opacity-60 mix-blend-screen rounded-full -rotate-2 -z-10 filter blur-[3px]" />
-                </h2>
                 <p className="font-[family-name:var(--font-caveat)] text-3xl md:text-4xl lg:text-5xl text-white/90 mb-12 lg:mb-16 rotate-2 drop-shadow-md">
                     Let's build something beautiful...
                 </p>

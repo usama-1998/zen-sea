@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { Send, Instagram, Facebook, Mail, MapPin, Phone } from "lucide-react";
 
 interface FooterProps {
     openModal: (context: string) => void;
@@ -8,82 +8,99 @@ interface FooterProps {
 
 export default function Footer({ openModal }: FooterProps) {
     return (
-        <footer id="contact" className="bg-slate-900 pt-20 pb-10 border-t-4 border-[#0077b6] relative overflow-hidden z-10">
-            <svg className="absolute bottom-0 right-0 w-[400px] h-[400px] lg:w-[500px] lg:h-[500px] text-[#0077b6] opacity-[0.08] pointer-events-none translate-x-1/4 translate-y-1/4 rotate-12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.69l5.66 4.2c.86.63 1.34 1.63 1.34 2.7v9.42c0 1.65-1.35 3-3 3H8c-1.65 0-3-1.35-3-3v-9.42c0-1.07.48-2.07 1.34-2.7L12 2.69zm0 2.51L7.54 8.52A1.5 1.5 0 0 0 7 9.59v9.42c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V9.59c0-.46-.22-.9-.6-1.18L12 5.2z" />
-            </svg>
+        <footer id="contact" className="relative bg-[#020617] text-white overflow-hidden pt-32 flex flex-col justify-between min-h-[90vh]">
+            {/* Mind-blowing ambient ocean glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#0077b6] rounded-full blur-[150px] opacity-20 pointer-events-none animate-[pulse_6s_ease-in-out_infinite]" />
+            <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#C5A880] rounded-full blur-[200px] opacity-10 pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 lg:mb-20">
-                    <div>
-                        <div className="text-3xl lg:text-4xl font-[family-name:var(--font-caveat)] text-white mb-6 -rotate-2">Zen Sea.</div>
-                        <p className="text-slate-400 font-light text-sm leading-relaxed mb-6 pr-4">
-                            Curating visceral, handcrafted escapes along the magnificent coastlines of Singapore.
-                        </p>
-                        <div className="font-[family-name:var(--font-caveat)] text-2xl lg:text-3xl text-[#C5A880] -rotate-3 mt-8">Yours truly...</div>
-                    </div>
+            {/* Top Interactive Area */}
+            <div className="max-w-[100rem] mx-auto px-6 lg:px-12 relative z-10 w-full flex-grow flex flex-col items-center">
+                {/* Minimal CTA */}
+                <div className="text-center mb-32 max-w-2xl w-full pt-10">
+                    <p className="font-[family-name:var(--font-caveat)] text-[#C5A880] text-4xl mb-6 -rotate-2">Your horizon awaits</p>
+                    <h3 className="text-4xl md:text-6xl font-light tracking-[0.2em] uppercase mb-16 text-white drop-shadow-lg">
+                        Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">Currents</span>
+                    </h3>
 
-                    <div>
-                        <h4 className="text-white text-xs tracking-[0.2em] uppercase mb-6 font-bold">The Chapters</h4>
-                        <ul className="space-y-4">
-                            {[
-                                { name: 'The Chart', id: '#the-chart' },
-                                { name: 'Our Fleet', id: '#our-fleet' },
-                                { name: 'Currents', id: '#currents' }
-                            ].map((link, i) => (
-                                <li key={i}>
-                                    <a href={link.id} className="nav-link inline-block text-slate-400 hover:text-[#C5A880] text-sm transition-colors font-light">
-                                        {link.name}
-                                        <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 25 0 50 10 T 100 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="text-white text-xs tracking-[0.2em] uppercase mb-6 font-bold">The Concierge</h4>
-                        <ul className="space-y-4 text-sm text-slate-400 font-light">
-                            <li className="flex items-start gap-3 group">
-                                <MapPin className="w-5 h-5 text-[#C5A880] shrink-0 group-hover:animate-bounce" />
-                                <span className="hand-drawn px-2 py-1 border-slate-700 group-hover:border-[#C5A880] transition-colors">One°15 Marina Sentosa Cove,<br />11 Cove Drive, SGP 098497</span>
-                            </li>
-                            <li className="flex items-center gap-3 group mt-2">
-                                <Phone className="w-5 h-5 text-[#C5A880] shrink-0 group-hover:rotate-12 transition-transform" />
-                                <span className="hand-drawn px-2 py-1 border-slate-700 group-hover:border-[#C5A880] transition-colors">+65 9062 2460</span>
-                            </li>
-                            <li className="flex items-center gap-3 group mt-2">
-                                <Mail className="w-5 h-5 text-[#C5A880] shrink-0 group-hover:-rotate-12 transition-transform" />
-                                <span className="hand-drawn px-2 py-1 border-slate-700 group-hover:border-[#C5A880] transition-colors">hello@zenseayacht.com.sg</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="text-white text-xs tracking-[0.2em] uppercase mb-6 font-bold">Message in a Bottle</h4>
-                        <p className="text-slate-400 font-light text-sm mb-6">Join our inner circle for whispered secrets and hidden coves.</p>
-                        <div className="flex border-b-2 border-[#0077b6] pb-2 group focus-within:border-[#C5A880] transition-colors relative">
+                    {/* Sleek Newsletter Input */}
+                    <div className="relative group w-full max-w-md mx-auto">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#0077b6] to-[#C5A880] rounded-none blur opacity-0 group-focus-within:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="relative flex items-center bg-transparent border-b border-white/20 focus-within:border-[#C5A880] pb-4 transition-all">
                             <input
                                 type="email"
-                                placeholder="Where to send the albatross..."
-                                className="bg-transparent text-white text-sm w-full focus:outline-none placeholder:text-slate-500 font-light pl-2 font-[family-name:var(--font-playfair)] italic"
+                                placeholder="Whisper your email..."
+                                className="bg-transparent w-full text-white placeholder-white/30 outline-none font-light tracking-[0.1em] text-sm"
                             />
                             <button
                                 onClick={() => openModal('Newsletter Signup')}
-                                className="text-[#C5A880] group-hover:text-white transition-colors pr-2 hover:scale-110"
+                                className="text-white/30 hover:text-[#C5A880] transition-colors ml-4 uppercase text-xs tracking-[0.2em] flex items-center gap-2 group/btn"
                             >
-                                <Send className="w-5 h-5" />
+                                Send <Send className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-light">
-                    <p>Copyright © 2026 Zen Sea Yacht Charter. Handcrafted in SGP.</p>
-                    <div className="flex gap-6">
-                        <a href="#" className="hover:text-white transition-colors underline decoration-[0.5px] underline-offset-4">Terms</a>
-                        <a href="#" className="hover:text-white transition-colors underline decoration-[0.5px] underline-offset-4">Privacy</a>
+                {/* Micro-Navigation Grid */}
+                <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8 text-sm font-light tracking-[0.15em] text-white/50 mb-20 z-20">
+                    <div className="flex flex-col gap-5 items-center md:items-start">
+                        <span className="text-white/80 font-semibold mb-2 tracking-[0.3em] text-xs">NAVIGATE</span>
+                        <a href="#the-chart" className="hover:text-white transition-all transform hover:translate-x-2">THE CHART</a>
+                        <a href="#our-fleet" className="hover:text-white transition-all transform hover:translate-x-2">OUR FLEET</a>
+                        <a href="#currents" className="hover:text-white transition-all transform hover:translate-x-2">CURRENTS</a>
                     </div>
+
+                    <div className="flex flex-col gap-5 items-center md:items-start">
+                        <span className="text-white/80 font-semibold mb-2 tracking-[0.3em] text-xs">CONNECT</span>
+                        <a href="mailto:hello@zenseayacht.com.sg" className="hover:text-[#C5A880] transition-colors flex items-center gap-3">
+                            <Mail className="w-4 h-4" /> hello@zenseayacht.com.sg
+                        </a>
+                        <a href="tel:+6590622460" className="hover:text-[#C5A880] transition-colors flex items-center gap-3">
+                            <Phone className="w-4 h-4" /> +65 9062 2460
+                        </a>
+                    </div>
+
+                    <div className="flex flex-col gap-5 items-center md:items-start md:col-span-2 lg:col-span-1 lg:col-start-4">
+                        <span className="text-white/80 font-semibold mb-2 tracking-[0.3em] text-xs">VISIT</span>
+                        <p className="flex items-start gap-3 text-center md:text-left leading-relaxed">
+                            <MapPin className="w-5 h-5 shrink-0 text-[#C5A880] mt-1" />
+                            <span>One°15 Marina Sentosa Cove<br />11 Cove Drive, SGP 098497</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mind-Blowing Huge Typography Container */}
+            <div className="w-full relative mt-auto flex flex-col items-center justify-end overflow-hidden z-0 pb-6 sm:pb-0">
+                {/* The huge text */}
+                <h1 className="text-[25vw] sm:text-[22vw] leading-[0.75] font-black tracking-tighter select-none pointer-events-none whitespace-nowrap opacity-50 md:opacity-100"
+                    style={{
+                        WebkitTextStroke: '1px rgba(255,255,255,0.15)',
+                        color: 'transparent'
+                    }}>
+                    ZEN SEA
+                </h1>
+
+                {/* Floating Socials over the text */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-6 sm:gap-12 z-10 w-full justify-center px-4">
+                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md hover:bg-white hover:text-black transition-all hover:scale-110">
+                        <Instagram className="w-5 h-5 sm:w-8 sm:h-8" />
+                    </a>
+                    <a href="#" className="w-12 h-12 sm:w-20 sm:h-20 rounded-full border border-white/10 flex items-center justify-center text-white backdrop-blur-md hover:bg-white hover:text-black transition-all hover:scale-110">
+                        <Facebook className="w-5 h-5 sm:w-8 sm:h-8" />
+                    </a>
+                </div>
+
+                {/* Bottom Bar overlaying the text */}
+                <div className="absolute bottom-4 sm:bottom-8 flex flex-col md:flex-row justify-between items-center w-full px-8 text-[9px] sm:text-xs text-white/40 font-light tracking-[0.2em] uppercase z-10">
+                    <span>© {new Date().getFullYear()} ZEN SEA YACHT CHARTER</span>
+
+                    <div className="flex gap-6 sm:gap-12 mt-4 md:mt-0">
+                        <a href="#" className="hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-white after:transition-all hover:after:w-full">TERMS OF VOYAGE</a>
+                        <a href="#" className="hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-white after:transition-all hover:after:w-full">PRIVACY POLICY</a>
+                    </div>
+
+                    <span className="hidden md:block">HANDCRAFTED IN SGP</span>
                 </div>
             </div>
         </footer>
