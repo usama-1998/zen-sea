@@ -124,4 +124,41 @@ body {
 
 @utility reveal-on-scroll { transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
 
+/* Infinite Wave Slide */
+@keyframes slide-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility animate-slide-left {
+  animation: slide-left 20s linear infinite;
+  width: 200%;
+}
+@utility animate-slide-left-fast {
+  animation: slide-left 10s linear infinite;
+  width: 200%;
+}
+@utility animate-slide-left-slow {
+  animation: slide-left 30s linear infinite;
+  width: 200%;
+}
+
+/* Bioluminescent Particles */
+@keyframes particle-up {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  20% { opacity: 1; transform: translateY(80vh) scale(1); box-shadow: 0 0 10px 2px rgba(197,168,128,0.8); }
+  80% { opacity: 0.8; transform: translateY(20vh) scale(1); box-shadow: 0 0 15px 4px rgba(0,119,182,0.6); }
+  100% { transform: translateY(-20vh) scale(0); opacity: 0; }
+}
+
+@utility animate-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: white;
+  animation: particle-up 10s linear infinite;
+  pointer-events: none;
+}
+
 html { scroll-behavior: smooth; }
