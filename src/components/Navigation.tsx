@@ -23,9 +23,9 @@ export default function Navigation({ openModal }: NavigationProps) {
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
                 <div className="relative group cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
                     <img
-                        src="https://zenseayacht.com.sg/wp-content/uploads/2025/01/logo-white-1-1.png"
+                        src="/zen-sea-logo.webp"
                         alt="Zen Sea Yacht Logo"
-                        className="h-10 w-auto opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+                        className="h-10 w-auto brightness-0 invert opacity-90 transition-opacity duration-500 group-hover:opacity-100"
                     />
                 </div>
 
