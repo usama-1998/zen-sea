@@ -82,6 +82,20 @@ export default function Hero({ openModal }: HeroProps) {
         setTimeout(() => setIsAnimating(false), 600);
     }, [activeIndex, isAnimating]);
 
+    // Continuous auto-rotation for the cards
+    useEffect(() => {
+        if (!isLoaded) return;
+        const interval = setInterval(() => {
+            setActiveIndex((current) => {
+                const next = (current + 1) % CARDS.length;
+                setIsAnimating(true);
+                setTimeout(() => setIsAnimating(false), 600);
+                return next;
+            });
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [isLoaded]);
+
     // 3D tilt for glass card
     const tiltX = (mousePosition.y - 0.5) * -8;
     const tiltY = (mousePosition.x - 0.5) * 8;
@@ -240,7 +254,7 @@ export default function Hero({ openModal }: HeroProps) {
                         <div
                             ref={cardRef}
                             className="relative group"
-                            style={{ perspective: "1200px" }}
+                            style={{ perspective: "1200px", animation: "cardFloat 8s ease-in-out infinite" }}
                         >
                             {/* Glow halo behind stack */}
                             <div
@@ -351,14 +365,6 @@ export default function Hero({ openModal }: HeroProps) {
                                 );
                             })}
 
-                            {/* Floating accent badge */}
-                            <div
-                                className={`absolute -top-3 -right-3 lg:-top-4 lg:-right-4 z-40 px-4 py-2 bg-[#C5A880]/10 backdrop-blur-xl border border-[#C5A880]/20 rounded-full transition-all duration-700 delay-[1100ms] ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
-                            >
-                                <span className="text-[#C5A880] text-[9px] tracking-[0.2em] uppercase font-bold">
-                                    Est. 2024
-                                </span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -371,15 +377,16 @@ export default function Hero({ openModal }: HeroProps) {
                 style={{
                     width: 28,
                     height: 28,
+                    left: cursorPos.x - 14,
+                    top: cursorPos.y - 14,
                     background: "radial-gradient(circle, rgba(197,168,128,0.85) 0%, rgba(197,168,128,0.3) 50%, transparent 100%)",
                     boxShadow: "0 0 16px 4px rgba(197,168,128,0.5)",
-                    transform: `translate(${cursorPos.x - 14}px, ${cursorPos.y - 14}px)`,
-                    transition: "transform 0.06s linear",
+                    transition: "left 0.05s linear, top 0.05s linear",
                     filter: "blur(1px)",
                 }}
             />
             {/* Trail dots */}
-            {cursorTrail.map((dot, i) => {
+            {cursorTrail.map((dot) => {
                 const age = cursorTrail.length - 1 - cursorTrail.findIndex(d => d.id === dot.id);
                 const opacity = Math.max(0, 0.55 - age * 0.045);
                 const size = Math.max(4, 14 - age * 1.0);
@@ -390,9 +397,10 @@ export default function Hero({ openModal }: HeroProps) {
                         style={{
                             width: size,
                             height: size,
+                            left: dot.x - size / 2,
+                            top: dot.y - size / 2,
                             background: `rgba(197,168,128,${opacity})`,
                             boxShadow: `0 0 ${size * 1.5}px ${size * 0.5}px rgba(197,168,128,${opacity * 0.6})`,
-                            transform: `translate(${dot.x - size / 2}px, ${dot.y - size / 2}px)`,
                             filter: "blur(0.5px)",
                         }}
                     />
@@ -413,6 +421,10 @@ export default function Hero({ openModal }: HeroProps) {
                     0% { transform: translateY(-100%); opacity: 0; }
                     50% { transform: translateY(100%); opacity: 1; }
                     100% { transform: translateY(300%); opacity: 0; }
+                }
+                @keyframes cardFloat {
+                    0%, 100% { transform: translateY(0px); }
+                    50% { transform: translateY(-12px); }
                 }
             `}</style>
         </section>
