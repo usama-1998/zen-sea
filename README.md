@@ -11,6 +11,7 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - Mobile-responsive navigation and fully-styled interactive Modals.
 
 ## Recent Updates
+- **Cleanup**: Removed unused Python utilities and related files to ensure the repository remains strictly focused on the core React/Next.js web application.
 - **Interactive Hover & Auto-Animations**: Automated the Hero section's background canvas to subtly drift when idle and follow the cursor when active. Polished the user experience by adding proper pointer cursors over CTA and Play buttons.
 - **Conversion & Visual Immersions**: Integrated the provided local `zen-sea-logo.webp` file, appropriately sized and rendered elegantly in white using CSS filters in the Navigation bar. Implemented a sleek full-screen Video Modal view replacing the traditional 'Watch Film' text link in Hero. Added new CTAs anchoring to the fleet within the 'Love Letter' section, and injected bespoke video indicator icons onto the collection cards.
 - **Hero Section Enhancements**: Implemented an ultra-realistic, interactive Canvas particle background with a fluid mouse repel effect. Updated hero card images to feature yacht-relevant destinations, integrated a sleek Play icon overlay, and refined the stacked card aesthetic by removing auto-rotation and tilt for a static, elegant presentation.
