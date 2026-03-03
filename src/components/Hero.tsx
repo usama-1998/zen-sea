@@ -38,16 +38,18 @@ export default function Hero({ openModal }: HeroProps) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
-    const [cursorPos, setCursorPos] = useState({ x: -200, y: -200 });
-    const [cursorTrail, setCursorTrail] = useState<{ x: number; y: number; id: number }[]>([]);
     const heroRef = useRef<HTMLElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
-    const trailCounterRef = useRef(0);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const targetMousePos = useRef({ x: -1000, y: -1000 });
+    const currentMousePos = useRef({ x: -1000, y: -1000 });
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoaded(true), 200);
 
         const handleMouseMove = (e: MouseEvent) => {
+            targetMousePos.current = { x: e.clientX, y: e.clientY };
+
             // Tilt tracking
             if (heroRef.current) {
                 const rect = heroRef.current.getBoundingClientRect();
@@ -55,17 +57,6 @@ export default function Hero({ openModal }: HeroProps) {
                 const y = (e.clientY - rect.top) / rect.height;
                 setMousePosition({ x, y });
             }
-            // Cursor trail
-            setCursorPos({ x: e.clientX, y: e.clientY });
-            trailCounterRef.current += 1;
-            const id = trailCounterRef.current;
-            setCursorTrail((prev) => [
-                ...prev.slice(-12),
-                { x: e.clientX, y: e.clientY, id },
-            ]);
-            setTimeout(() => {
-                setCursorTrail((prev) => prev.filter((p) => p.id !== id));
-            }, 600);
         };
 
         window.addEventListener("mousemove", handleMouseMove);
@@ -75,30 +66,165 @@ export default function Hero({ openModal }: HeroProps) {
         };
     }, []);
 
+    // Ultra-Realistic Canvas Background Effect
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d", { alpha: true });
+        if (!ctx) return;
+
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        const handleResize = () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            init(); // Reinitialize particles on resize to ensure even spread
+        };
+        window.addEventListener("resize", handleResize);
+
+        class Particle {
+            x: number;
+            y: number;
+            size: number;
+            baseOpacity: number;
+            opacity: number;
+            speedX: number;
+            speedY: number;
+
+            constructor(w: number, h: number) {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+
+                const rand = Math.random();
+                if (rand < 0.1) {
+                    this.size = Math.random() * 2.0 + 1.0;
+                } else {
+                    this.size = Math.random() * 0.8 + 0.2;
+                }
+
+                this.baseOpacity = Math.random() * 0.4 + 0.1;
+                this.opacity = this.baseOpacity;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3 - 0.1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < -20) this.x = width + 20;
+                if (this.x > width + 20) this.x = -20;
+                if (this.y < -20) this.y = height + 20;
+                if (this.y > height + 20) this.y = -20;
+
+                const dx = targetMousePos.current.x - this.x;
+                const dy = targetMousePos.current.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const maxDistance = 300;
+                if (distance < maxDistance && targetMousePos.current.x !== -1000) {
+                    const force = (maxDistance - distance) / maxDistance;
+                    const directionX = dx / distance;
+                    const directionY = dy / distance;
+
+                    // Repel with fluid-like smooth motion
+                    this.x -= directionX * force * 1.5;
+                    this.y -= directionY * force * 1.5;
+
+                    this.opacity = Math.min(this.baseOpacity + 0.5 * force, 0.9);
+                } else {
+                    if (this.opacity > this.baseOpacity) {
+                        this.opacity -= 0.01;
+                    }
+                }
+            }
+
+            draw(ctx: CanvasRenderingContext2D) {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+
+                if (this.size > 1.2) {
+                    ctx.shadowBlur = 12;
+                    ctx.shadowColor = "#C5A880";
+                }
+
+                ctx.fillStyle = "#C5A880";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        let particles: Particle[] = [];
+        const init = () => {
+            particles = [];
+            let count = Math.floor((width * height) / 10000);
+            if (count > 400) count = 400; // Cap to ensure high performance
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(width, height));
+            }
+        };
+
+        let animationFrameId: number;
+
+        const animate = () => {
+            // Clear with transparent fade for motion blur without obscuring background
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = "source-over"; // switch back to normal
+
+            // Lerp mouse pos for smooth light tracking
+            currentMousePos.current.x += (targetMousePos.current.x - currentMousePos.current.x) * 0.05;
+            currentMousePos.current.y += (targetMousePos.current.y - currentMousePos.current.y) * 0.05;
+
+            const cx = currentMousePos.current.x;
+            const cy = currentMousePos.current.y;
+
+            // Draw interactive glowing spotlight
+            if (cx !== -1000 && cy !== -1000) {
+                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 600);
+                grad.addColorStop(0, "rgba(197, 168, 128, 0.06)");
+                grad.addColorStop(0.3, "rgba(56, 189, 248, 0.02)");
+                grad.addColorStop(1, "rgba(5, 11, 20, 0)");
+
+                ctx.save();
+                ctx.globalCompositeOperation = "screen"; // Overlay light beautifully
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, width, height);
+                ctx.restore();
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw(ctx);
+            }
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        init();
+        animate();
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, []);
+
     const handleCardClick = useCallback((index: number) => {
         if (index === activeIndex || isAnimating) return;
         setIsAnimating(true);
         setActiveIndex(index);
         setTimeout(() => setIsAnimating(false), 600);
     }, [activeIndex, isAnimating]);
-
-    // Continuous auto-rotation for the cards
-    useEffect(() => {
-        if (!isLoaded) return;
-        const interval = setInterval(() => {
-            setActiveIndex((current) => {
-                const next = (current + 1) % CARDS.length;
-                setIsAnimating(true);
-                setTimeout(() => setIsAnimating(false), 600);
-                return next;
-            });
-        }, 5000);
-        return () => clearInterval(interval);
-    }, [isLoaded]);
-
-    // 3D tilt for glass card
-    const tiltX = (mousePosition.y - 0.5) * -8;
-    const tiltY = (mousePosition.x - 0.5) * 8;
 
     // Build ordered card indices: active first, then others
     const cardOrder = [activeIndex, ...CARDS.map((_, i) => i).filter(i => i !== activeIndex)];
@@ -150,6 +276,13 @@ export default function Hero({ openModal }: HeroProps) {
                     `,
                     backgroundSize: "80px 80px",
                 }}
+            />
+
+            {/* ═══ Ultra-Realistic Canvas Background ═══ */}
+            <canvas
+                ref={canvasRef}
+                className="absolute inset-0 z-0 pointer-events-none"
+                style={{ opacity: isLoaded ? 1 : 0, transition: "opacity 2s ease-in-out" }}
             />
 
             {/* ═══ Content Grid ═══ */}
@@ -254,7 +387,7 @@ export default function Hero({ openModal }: HeroProps) {
                         <div
                             ref={cardRef}
                             className="relative group"
-                            style={{ perspective: "1200px", animation: "cardFloat 8s ease-in-out infinite" }}
+                            style={{ perspective: "1200px" }}
                         >
                             {/* Glow halo behind stack */}
                             <div
@@ -289,7 +422,7 @@ export default function Hero({ openModal }: HeroProps) {
                                             }`}
                                         style={{
                                             zIndex,
-                                            transform: `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg) scale(${scale}) rotateX(${tiltX * tiltMult}deg) rotateY(${tiltY * tiltMult}deg)`,
+                                            transform: `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg) scale(${scale})`,
                                             transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                                             transformOrigin: "center center",
                                         }}
@@ -370,43 +503,6 @@ export default function Hero({ openModal }: HeroProps) {
                 </div>
             </div>
 
-            {/* ═══ Golden Cursor Trail ═══ */}
-            {/* Main cursor glow */}
-            <div
-                className="fixed pointer-events-none z-[9999] rounded-full"
-                style={{
-                    width: 28,
-                    height: 28,
-                    left: cursorPos.x - 14,
-                    top: cursorPos.y - 14,
-                    background: "radial-gradient(circle, rgba(197,168,128,0.85) 0%, rgba(197,168,128,0.3) 50%, transparent 100%)",
-                    boxShadow: "0 0 16px 4px rgba(197,168,128,0.5)",
-                    transition: "left 0.05s linear, top 0.05s linear",
-                    filter: "blur(1px)",
-                }}
-            />
-            {/* Trail dots */}
-            {cursorTrail.map((dot) => {
-                const age = cursorTrail.length - 1 - cursorTrail.findIndex(d => d.id === dot.id);
-                const opacity = Math.max(0, 0.55 - age * 0.045);
-                const size = Math.max(4, 14 - age * 1.0);
-                return (
-                    <div
-                        key={dot.id}
-                        className="fixed pointer-events-none z-[9998] rounded-full"
-                        style={{
-                            width: size,
-                            height: size,
-                            left: dot.x - size / 2,
-                            top: dot.y - size / 2,
-                            background: `rgba(197,168,128,${opacity})`,
-                            boxShadow: `0 0 ${size * 1.5}px ${size * 0.5}px rgba(197,168,128,${opacity * 0.6})`,
-                            filter: "blur(0.5px)",
-                        }}
-                    />
-                );
-            })}
-
             {/* ═══ Keyframes ═══ */}
             <style>{`
                 @keyframes orbFloat {
@@ -421,10 +517,6 @@ export default function Hero({ openModal }: HeroProps) {
                     0% { transform: translateY(-100%); opacity: 0; }
                     50% { transform: translateY(100%); opacity: 1; }
                     100% { transform: translateY(300%); opacity: 0; }
-                }
-                @keyframes cardFloat {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-12px); }
                 }
             `}</style>
         </section>
