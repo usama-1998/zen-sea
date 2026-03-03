@@ -25,7 +25,7 @@ export default function Navigation({ openModal }: NavigationProps) {
                     <img
                         src="/zen-sea-logo.webp"
                         alt="Zen Sea Yacht Logo"
-                        className="h-16 md:h-20 w-auto brightness-0 invert opacity-90 transition-opacity duration-500 group-hover:opacity-100 object-contain"
+                        className="h-12 md:h-14 w-auto brightness-0 invert opacity-90 transition-opacity duration-500 group-hover:opacity-100 object-contain"
                     />
                 </div>
 
