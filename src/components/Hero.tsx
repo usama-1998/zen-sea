@@ -122,12 +122,12 @@ export default function Hero({ openModal }: HeroProps) {
                 if (this.y < -20) this.y = height + 20;
                 if (this.y > height + 20) this.y = -20;
 
-                const dx = targetMousePos.current.x - this.x;
-                const dy = targetMousePos.current.y - this.y;
+                const dx = currentMousePos.current.x - this.x;
+                const dy = currentMousePos.current.y - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 const maxDistance = 300;
-                if (distance < maxDistance && targetMousePos.current.x !== -1000) {
+                if (distance < maxDistance && currentMousePos.current.x !== -1000) {
                     const force = (maxDistance - distance) / maxDistance;
                     const directionX = dx / distance;
                     const directionY = dy / distance;
@@ -182,9 +182,25 @@ export default function Hero({ openModal }: HeroProps) {
             ctx.fillRect(0, 0, width, height);
             ctx.globalCompositeOperation = "source-over"; // switch back to normal
 
+            const time = Date.now() * 0.001;
+            let targetX = targetMousePos.current.x;
+            let targetY = targetMousePos.current.y;
+
+            // If user hasn't moved mouse yet, animate gently around the center
+            if (targetMousePos.current.x === -1000) {
+                targetX = width / 2 + Math.cos(time * 0.5) * (width * 0.2);
+                targetY = height / 2 + Math.sin(time * 0.3) * (height * 0.2);
+
+                // Initialize currentMousePos if it's the first frame
+                if (currentMousePos.current.x === -1000) {
+                    currentMousePos.current.x = targetX;
+                    currentMousePos.current.y = targetY;
+                }
+            }
+
             // Lerp mouse pos for smooth light tracking
-            currentMousePos.current.x += (targetMousePos.current.x - currentMousePos.current.x) * 0.05;
-            currentMousePos.current.y += (targetMousePos.current.y - currentMousePos.current.y) * 0.05;
+            currentMousePos.current.x += (targetX - currentMousePos.current.x) * 0.05;
+            currentMousePos.current.y += (targetY - currentMousePos.current.y) * 0.05;
 
             const cx = currentMousePos.current.x;
             const cy = currentMousePos.current.y;
@@ -334,7 +350,7 @@ export default function Hero({ openModal }: HeroProps) {
                         >
                             <button
                                 onClick={() => openModal("Hero: Discover Fleet")}
-                                className="group relative px-7 py-3.5 bg-white/[0.06] backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-bold border border-white/15 hover:border-[#C5A880]/50 rounded-full transition-all duration-500 overflow-hidden"
+                                className="group cursor-pointer relative px-7 py-3.5 bg-white/[0.06] backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-bold border border-white/15 hover:border-[#C5A880]/50 rounded-full transition-all duration-500 overflow-hidden"
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#C5A880]/30 to-transparent w-0 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
                                 <span className="relative z-10 flex items-center gap-2.5">
@@ -357,7 +373,7 @@ export default function Hero({ openModal }: HeroProps) {
 
                             <button
                                 onClick={() => openModal("Hero: Watch Film")}
-                                className="group flex items-center gap-3 text-white/60 hover:text-white text-[10px] tracking-[0.2em] uppercase font-bold transition-colors duration-400"
+                                className="group cursor-pointer flex items-center gap-3 text-white/60 hover:text-white text-[10px] tracking-[0.2em] uppercase font-bold transition-colors duration-400"
                             >
                                 Watch Film
                             </button>
@@ -462,7 +478,7 @@ export default function Hero({ openModal }: HeroProps) {
                                             {isActive && (
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); openModal("Hero: Watch Film"); }}
-                                                    className="absolute inset-0 flex items-center justify-center group/play"
+                                                    className="absolute cursor-pointer inset-0 flex items-center justify-center group/play"
                                                     aria-label="Watch Film"
                                                 >
                                                     <div className="w-16 h-16 rounded-full border border-white/30 bg-black/30 backdrop-blur-md flex items-center justify-center group-hover/play:border-[#C5A880] group-hover/play:bg-[#C5A880]/20 group-hover/play:scale-110 transition-all duration-400 shadow-[0_0_30px_rgba(197,168,128,0.2)]">

@@ -11,6 +11,7 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - Mobile-responsive navigation and fully-styled interactive Modals.
 
 ## Recent Updates
+- **Interactive Hover & Auto-Animations**: Automated the Hero section's background canvas to subtly drift when idle and follow the cursor when active. Polished the user experience by adding proper pointer cursors over CTA and Play buttons.
 - **Hero Section Enhancements**: Implemented an ultra-realistic, interactive Canvas particle background with a fluid mouse repel effect. Updated hero card images to feature yacht-relevant destinations, integrated a sleek Play icon overlay, and refined the stacked card aesthetic by removing auto-rotation and tilt for a static, elegant presentation.
 - **Refined Design Philosophy**: Transitioned to a cleaner, sophisticated aesthetic featuring rounded glass cards, elegant ambient orbs, and consistent dark backgrounds across all sections.
 - **Minimal & Impactful Footer**: Redesigned the footer for a minimal but mind-blowing user experience, featuring deep ambient ocean glows and clean typography.
