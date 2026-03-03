@@ -15,6 +15,7 @@ A bespoke, handcrafted maritime experience designed with React and Next.js. This
 - **Refined Design Philosophy**: Transitioned to a cleaner, sophisticated aesthetic featuring rounded glass cards, elegant ambient orbs, and consistent dark backgrounds across all sections.
 - **Minimal & Impactful Footer**: Redesigned the footer for a minimal but mind-blowing user experience, featuring deep ambient ocean glows and clean typography.
 - **Enhanced UI Consistency**: Removed oversized decorations and film grain overalls in favor of refined typography, compact button styles, and cohesive dark layouts.
+- **Performance Optimization**: Consolidated `BackgroundAnimation` directly into the `Hero` component for improved rendering performance and cleaner component architecture.
 - **Responsive & Layout Fixes**: Resolved layout issues (e.g., cut-off cards) and balanced Hero element sizing to ensure a perfect presentation across devices.
 - **Site-Wide Dark Theme**: Complete overhaul to ensure all sections seamlessly transition with deep '#050B14' backgrounds and edge-to-edge dark formatting.
 - **Interactive Micro-Animations**: Advanced parallax effects, dynamic cursor lighting, and refined Hero intros with animated typography.
