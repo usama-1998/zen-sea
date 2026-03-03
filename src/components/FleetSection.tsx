@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Ship, Anchor, ArrowRight } from "lucide-react";
+import { Ship, Anchor, ArrowRight, Play } from "lucide-react";
 
 interface FleetProps {
     openModal: (context: string) => void;
@@ -118,6 +118,17 @@ export default function FleetSection({ fleet, openModal }: FleetProps) {
 
                                     {/* Hover Glow */}
                                     <div className="absolute inset-0 bg-[#C5A880]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay pointer-events-none rounded-xl" />
+
+                                    {/* Play Video CTA overlay on card */}
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); openModal("Video"); }}
+                                        className="absolute inset-0 flex items-center justify-center group/play cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20"
+                                        aria-label="View Yacht Video"
+                                    >
+                                        <div className="w-14 h-14 rounded-full border border-white/30 bg-black/40 backdrop-blur-md flex items-center justify-center group-hover/play:border-[#C5A880] group-hover/play:bg-[#C5A880]/30 group-hover/play:scale-110 transition-all duration-400 shadow-[0_0_20px_rgba(197,168,128,0.3)]">
+                                            <Play className="w-4 h-4 ml-1 fill-white text-white group-hover/play:fill-[#C5A880] group-hover/play:text-[#C5A880] transition-colors duration-300" />
+                                        </div>
+                                    </button>
                                 </div>
 
                                 {/* Content Details */}

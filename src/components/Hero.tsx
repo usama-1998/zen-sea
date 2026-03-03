@@ -371,12 +371,6 @@ export default function Hero({ openModal }: HeroProps) {
                                 </span>
                             </button>
 
-                            <button
-                                onClick={() => openModal("Hero: Watch Film")}
-                                className="group cursor-pointer flex items-center gap-3 text-white/60 hover:text-white text-[10px] tracking-[0.2em] uppercase font-bold transition-colors duration-400"
-                            >
-                                Watch Film
-                            </button>
                         </div>
 
                         {/* Scroll hint */}
@@ -477,7 +471,7 @@ export default function Hero({ openModal }: HeroProps) {
                                             {/* Play button overlay on active card */}
                                             {isActive && (
                                                 <button
-                                                    onClick={(e) => { e.stopPropagation(); openModal("Hero: Watch Film"); }}
+                                                    onClick={(e) => { e.stopPropagation(); openModal("Video"); }}
                                                     className="absolute cursor-pointer inset-0 flex items-center justify-center group/play"
                                                     aria-label="Watch Film"
                                                 >

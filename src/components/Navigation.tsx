@@ -22,9 +22,11 @@ export default function Navigation({ openModal }: NavigationProps) {
         <nav className={`fixed w-full z-50 transition-all duration-700 ${isScrolled ? 'bg-[#050B14]/80 backdrop-blur-md py-4 border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]' : 'bg-transparent py-6'}`}>
             <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
                 <div className="relative group cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-                    <div className="text-3xl font-[family-name:var(--font-playfair)] tracking-wide text-white transition-colors duration-500">
-                        Zen Sea<span className="text-[#C5A880]">.</span>
-                    </div>
+                    <img
+                        src="https://zenseayacht.com.sg/wp-content/uploads/2025/01/logo-white-1-1.png"
+                        alt="Zen Sea Yacht Logo"
+                        className="h-10 w-auto opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+                    />
                 </div>
 
                 {/* Desktop Navigation */}
@@ -38,7 +40,7 @@ export default function Navigation({ openModal }: NavigationProps) {
                     ))}
                     <button
                         onClick={() => openModal('Navbar Booking')}
-                        className={`group relative overflow-hidden flex items-center justify-center px-8 py-3 bg-white/5 border border-white/20 hover:border-[#C5A880]/50 rounded-full transition-colors ${!isScrolled && 'backdrop-blur-sm'}`}>
+                        className={`group cursor-pointer relative overflow-hidden flex items-center justify-center px-8 py-3 bg-white/5 border border-white/20 hover:border-[#C5A880]/50 rounded-full transition-colors ${!isScrolled && 'backdrop-blur-sm'}`}>
                         <div className="absolute inset-0 bg-[#C5A880] w-0 group-hover:w-full transition-all duration-500 ease-out z-0 rounded-full" />
                         <span className="relative z-10 text-[10px] tracking-[0.2em] uppercase font-bold text-white transition-colors">
                             Set Sail
@@ -64,7 +66,7 @@ export default function Navigation({ openModal }: NavigationProps) {
                     ))}
                     <button
                         onClick={() => { setMobileMenuOpen(false); openModal('Mobile Nav Booking'); }}
-                        className="mt-6 px-6 py-4 bg-white/5 border border-[#C5A880]/50 text-white text-[10px] tracking-[0.3em] uppercase font-bold mx-auto w-3/4 hover:bg-[#C5A880] transition-colors rounded-full">
+                        className="mt-6 px-6 py-4 cursor-pointer bg-white/5 border border-[#C5A880]/50 text-white text-[10px] tracking-[0.3em] uppercase font-bold mx-auto w-3/4 hover:bg-[#C5A880] transition-colors rounded-full">
                         Set Sail
                     </button>
                 </div>

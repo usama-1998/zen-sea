@@ -109,9 +109,25 @@ export default function AboutSection() {
                                 <p className="text-[9px] tracking-[0.2em] text-white/40 uppercase">Infused in Details</p>
                             </div>
                         </div>
+
+                        {/* CTA Flow Down to Fleet */}
+                        <div className="mt-10">
+                            <a
+                                href="#our-fleet"
+                                className="group cursor-pointer relative inline-flex items-center justify-center px-8 py-4 bg-white/[0.06] backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-bold border border-white/15 hover:border-[#C5A880]/50 rounded-full transition-all duration-500 overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#C5A880]/30 to-transparent w-0 group-hover:w-full transition-all duration-500 ease-out rounded-full" />
+                                <span className="relative z-10 flex items-center gap-3">
+                                    Plan Your Escape
+                                    <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }

@@ -27,6 +27,31 @@ export default function Modal({ isOpen, context, closeModal }: ModalProps) {
 
     if (!isOpen) return null;
 
+    if (context === "Video") {
+        return (
+            <div className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isRendered ? 'bg-[#050B14]/95 backdrop-blur-xl opacity-100' : 'bg-transparent backdrop-blur-none opacity-0'}`}>
+                <div className="absolute inset-0" onClick={closeModal}></div>
+
+                <div className={`relative w-full max-w-6xl aspect-video bg-black rounded-2xl shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] ${isRendered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                    <button
+                        onClick={closeModal}
+                        className="absolute top-4 right-4 z-20 text-white/50 hover:text-white hover:bg-white/10 transition-all p-3 rounded-full group"
+                    >
+                        <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
+                    </button>
+
+                    <video
+                        autoPlay
+                        controls
+                        className="w-full h-full object-cover"
+                    >
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-yacht-sailing-on-the-sea-11881-large.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isRendered ? 'bg-[#050B14]/80 backdrop-blur-md opacity-100' : 'bg-transparent backdrop-blur-none opacity-0'}`}>
             {/* Modal Background click to close */}
@@ -81,17 +106,17 @@ export default function Modal({ isOpen, context, closeModal }: ModalProps) {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="group relative">
                                     <input type="text" id="name" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Name" />
-                                    <label htmlFor="name" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Your Name</label>
+                                    <label htmlFor="name" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-[#C5A880] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#C5A880] bg-slate-900 px-1 pointer-events-none">Your Name</label>
                                 </div>
                                 <div className="group relative">
                                     <input type="email" id="email" required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all peer placeholder-transparent text-sm" placeholder="Email" />
-                                    <label htmlFor="email" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Your Email</label>
+                                    <label htmlFor="email" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-[#C5A880] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#C5A880] bg-slate-900 px-1 pointer-events-none">Your Email</label>
                                 </div>
                             </div>
 
                             <div className="group relative">
                                 <textarea id="message" required rows={3} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#C5A880] focus:bg-white/10 text-white transition-all resize-none peer placeholder-transparent text-sm" placeholder="Message"></textarea>
-                                <label htmlFor="message" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-[14px] peer-placeholder-shown:text-white/40 -top-2 text-[10px] bg-slate-900 px-1 pointer-events-none">Envisioned Voyage</label>
+                                <label htmlFor="message" className="absolute left-4 top-4 text-xs tracking-widest text-[#C5A880] uppercase transition-all peer-focus:-top-2 peer-focus:text-[10px] peer-focus:text-[#C5A880] peer-[:not(:placeholder-shown)]:-top-2 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:text-[#C5A880] bg-slate-900 px-1 pointer-events-none">Envisioned Voyage</label>
                             </div>
 
                             <button type="submit" className="group relative w-full overflow-hidden bg-white mt-4 flex items-center justify-center p-5 cursor-pointer rounded-full">
