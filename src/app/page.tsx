@@ -12,6 +12,7 @@ import ExperiencesSection from "@/components/ExperiencesSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 import Modal from "@/components/Modal";
+import BackgroundAnimation from "@/components/BackgroundAnimation";
 
 const fleet = [
   { name: 'The Wanderer', model: 'Helium I', guests: 13, cabins: 2, price: '$1088', rating: 4.9, note: "For intimate whispers...", image: '/images/yacht-wanderer.png' },
@@ -34,6 +35,8 @@ export default function Home() {
 
   return (
     <div className="bg-[#050B14] overflow-x-hidden selection:bg-[#C5A880] selection:text-slate-900 noise-bg min-h-screen relative text-white">
+
+      <BackgroundAnimation />
 
       {/* BACKGROUND NAUTICAL CHARTS */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.02] reveal-on-scroll opacity-0">
